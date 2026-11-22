@@ -3,7 +3,6 @@ import streamlit as st
 
 from belle_ai.pages.dashboard import render_dashboard
 from belle_ai.pages.documents import render_documents
-from belle_ai.pages.feature_previews import render_image_analysis
 from belle_ai.pages.research_chat import (
     render_research_chat,
     groq_is_configured,
@@ -23,12 +22,11 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Available pages — Knowledge Graph removed.
+# Only show active features.
 AVAILABLE_PAGES = [
     "Dashboard",
     "My Documents",
     "Research Chat",
-    "Image Analysis",
     "Settings",
 ]
 
@@ -38,13 +36,13 @@ st.session_state.setdefault("documents", {})
 st.session_state.setdefault("upload_version", 0)
 st.session_state.setdefault("upload_feedback", [])
 
-# Handle an old session that was on Knowledge Graph.
+# Redirect anyone visiting a removed page.
 if st.session_state["active_page"] not in AVAILABLE_PAGES:
     st.session_state["active_page"] = "Dashboard"
 
 inject_styles()
 
-# Detect which AI service is configured.
+# Check which AI service is configured.
 if groq_is_configured():
     ai_status_title = "Groq AI"
     ai_status_message = "Connected · GPT-OSS 20B"
@@ -102,7 +100,7 @@ with st.sidebar:
 
     st.caption("Your PDFs stay in this app session.")
 
-# Render the selected page.
+# Display the selected page.
 page = st.session_state["active_page"]
 
 title, subtitle, eyebrow = PAGE_DETAILS[page]
@@ -121,9 +119,6 @@ elif page == "My Documents":
 
 elif page == "Research Chat":
     render_research_chat()
-
-elif page == "Image Analysis":
-    render_image_analysis()
 
 elif page == "Settings":
     render_settings()
