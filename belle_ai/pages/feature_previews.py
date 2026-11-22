@@ -82,7 +82,7 @@ def render_image_analysis() -> None:
                 client = Groq(api_key=api_key)
 
                 response = client.chat.completions.create(
-                    model="llama-3.2-11b-vision-preview",
+                    model="qwen/qwen3.8-27b",
                     messages=[
                         {
                             "role": "system",

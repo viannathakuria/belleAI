@@ -11,7 +11,7 @@ from belle_ai.rag import get_relevant_pages
 
 
 GROQ_MODEL = "openai/gpt-oss-20b"
-VISION_MODEL = "meta-llama/llama-4-scout-17b-16e-instruct"
+VISION_MODEL = "qwen/qwen3.8-27b"
 OLLAMA_MODEL = "qwen2.5-coder:3b"
 
 
