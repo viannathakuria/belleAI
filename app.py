@@ -7,6 +7,7 @@ from belle_ai.pages.research_chat import (
     render_research_chat,
     groq_is_configured,
 )
+from belle_ai.pages.feature_previews import render_image_analysis
 from belle_ai.pages.settings import render_settings
 from belle_ai.ui import (
     PAGE_DETAILS,
@@ -22,11 +23,12 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Only show active features.
+# Show active features.
 AVAILABLE_PAGES = [
     "Dashboard",
     "My Documents",
     "Research Chat",
+    "Image Analysis",
     "Settings",
 ]
 
@@ -36,7 +38,7 @@ st.session_state.setdefault("documents", {})
 st.session_state.setdefault("upload_version", 0)
 st.session_state.setdefault("upload_feedback", [])
 
-# Redirect anyone visiting a removed page.
+# Redirect anyone visiting an unavailable page.
 if st.session_state["active_page"] not in AVAILABLE_PAGES:
     st.session_state["active_page"] = "Dashboard"
 
@@ -103,7 +105,13 @@ with st.sidebar:
 # Display the selected page.
 page = st.session_state["active_page"]
 
-title, subtitle, eyebrow = PAGE_DETAILS[page]
+# Provide page details for the new Image Analysis page.
+if page == "Image Analysis":
+    title = "Image Analysis"
+    subtitle = "Upload images and explore them with AI."
+    eyebrow = "VISION AI"
+else:
+    title, subtitle, eyebrow = PAGE_DETAILS[page]
 
 render_page_header(
     title=title,
@@ -119,6 +127,9 @@ elif page == "My Documents":
 
 elif page == "Research Chat":
     render_research_chat()
+
+elif page == "Image Analysis":
+    render_image_analysis()
 
 elif page == "Settings":
     render_settings()
