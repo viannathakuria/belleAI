@@ -38,15 +38,15 @@ def groq_is_configured() -> bool:
 
 
 def inject_styles() -> None:
-    """Apply belleAI's pink-and-blue theme with readable contrast."""
+    """Apply belleAI's pink-and-blue theme with consistent text contrast."""
 
     st.markdown(
         """
 <style>
 
-/* ================================
-   BELLEAI COLOR SYSTEM
-   ================================ */
+/* ==========================================
+   BELLEAI DESIGN SYSTEM
+   ========================================== */
 
 :root {
     --belle-ink: #203455;
@@ -69,9 +69,9 @@ def inject_styles() -> None:
         linear-gradient(110deg, #b43f7d, #3475b1);
 }
 
-/* ================================
+/* ==========================================
    MAIN APPLICATION
-   ================================ */
+   ========================================== */
 
 .stApp,
 [data-testid="stAppViewContainer"] {
@@ -115,9 +115,9 @@ def inject_styles() -> None:
     color: var(--belle-blue-dark);
 }
 
-/* ================================
+/* ==========================================
    SIDEBAR
-   ================================ */
+   ========================================== */
 
 [data-testid="stSidebar"] {
     background: #fff1f7;
@@ -133,6 +133,8 @@ def inject_styles() -> None:
 [data-testid="stSidebar"] label {
     color: var(--belle-ink);
 }
+
+/* Branding */
 
 .brand-lockup {
     display: flex;
@@ -246,9 +248,9 @@ def inject_styles() -> None:
     font-size: 0.75rem;
 }
 
-/* ================================
+/* ==========================================
    PAGE HEADINGS
-   ================================ */
+   ========================================== */
 
 .page-heading {
     display: flex;
@@ -318,9 +320,9 @@ def inject_styles() -> None:
     letter-spacing: 0.12em;
 }
 
-/* ================================
+/* ==========================================
    DASHBOARD CARDS AND METRICS
-   ================================ */
+   ========================================== */
 
 div[data-testid="stVerticalBlockBorderWrapper"] {
     border-color: #e5c3d6;
@@ -355,9 +357,9 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     font-weight: 650;
 }
 
-/* ================================
+/* ==========================================
    EMPTY STATES AND DOCUMENTS
-   ================================ */
+   ========================================== */
 
 .empty-state {
     padding: 2rem 1.2rem;
@@ -396,21 +398,21 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     letter-spacing: 0.1em;
 }
 
-/* ================================
-   BUTTONS — CONTRAST FIX
-   ================================ */
-
-/* General button appearance */
+/* ==========================================
+   BUTTONS — DARK = LIGHT TEXT
+   ========================================== */
 
 .stButton > button,
 .stDownloadButton > button,
 .stFormSubmitButton > button {
     border-radius: 0.7rem !important;
     font-weight: 700 !important;
-    transition: background 140ms ease;
+    transition:
+        background 140ms ease,
+        box-shadow 140ms ease;
 }
 
-/* Light buttons = dark text */
+/* Light secondary buttons */
 
 .stButton > button:not([kind="primary"]),
 .stDownloadButton > button:not([kind="primary"]),
@@ -432,7 +434,7 @@ button[data-testid="stBaseButton-secondaryFormSubmit"] * {
     -webkit-text-fill-color: #71304f !important;
 }
 
-/* Dark gradient buttons = white text */
+/* Dark primary buttons */
 
 .stButton > button[kind="primary"],
 .stDownloadButton > button[kind="primary"],
@@ -454,8 +456,6 @@ button[data-testid="stBaseButton-primaryFormSubmit"] * {
     -webkit-text-fill-color: #ffffff !important;
 }
 
-/* Hover states */
-
 .stButton > button:not([kind="primary"]):hover,
 .stDownloadButton > button:not([kind="primary"]):hover {
     background: #f9dce9 !important;
@@ -464,14 +464,9 @@ button[data-testid="stBaseButton-primaryFormSubmit"] * {
 
 .stButton > button[kind="primary"]:hover,
 .stDownloadButton > button[kind="primary"]:hover {
-    background: linear-gradient(
-        110deg,
-        #923462,
-        #27679e
-    ) !important;
+    background:
+        linear-gradient(110deg, #923462, #27679e) !important;
 }
-
-/* Disabled buttons */
 
 .stButton > button:disabled,
 .stDownloadButton > button:disabled {
@@ -479,9 +474,9 @@ button[data-testid="stBaseButton-primaryFormSubmit"] * {
     cursor: not-allowed;
 }
 
-/* ================================
+/* ==========================================
    TEXT INPUTS
-   ================================ */
+   ========================================== */
 
 [data-testid="stTextInput"] input,
 [data-testid="stTextArea"] textarea,
@@ -507,9 +502,9 @@ button[data-testid="stBaseButton-primaryFormSubmit"] * {
     font-weight: 650 !important;
 }
 
-/* ================================
+/* ==========================================
    CHAT MESSAGES
-   ================================ */
+   ========================================== */
 
 [data-testid="stChatMessage"] {
     background: #e8f4ff !important;
@@ -520,7 +515,7 @@ button[data-testid="stBaseButton-primaryFormSubmit"] * {
     box-shadow: 0 2px 8px rgba(35, 54, 92, 0.05);
 }
 
-/* User = pink */
+/* User messages */
 
 [data-testid="stChatMessage"]:has(
     [data-testid="chatAvatarIcon-user"]
@@ -529,7 +524,7 @@ button[data-testid="stBaseButton-primaryFormSubmit"] * {
     border: 1px solid #e4aac5 !important;
 }
 
-/* Assistant = blue */
+/* Assistant messages */
 
 [data-testid="stChatMessage"]:has(
     [data-testid="chatAvatarIcon-assistant"]
@@ -538,8 +533,6 @@ button[data-testid="stBaseButton-primaryFormSubmit"] * {
     border: 1px solid #a9cde9 !important;
     border-left: 4px solid #4789c5 !important;
 }
-
-/* Readable chat text */
 
 [data-testid="stChatMessage"]
 [data-testid="stMarkdownContainer"],
@@ -582,17 +575,16 @@ button[data-testid="stBaseButton-primaryFormSubmit"] * {
     color: #435775 !important;
 }
 
-/* ================================
+/* ==========================================
    CHAT INPUT
-   ================================ */
+   ========================================== */
 
 [data-testid="stChatInput"] {
     background: #fff0f7 !important;
     border: 1.5px solid #d99ebc !important;
     border-radius: 14px !important;
-    box-shadow: 0 3px 12px rgba(
-        195, 78, 140, 0.08
-    ) !important;
+    box-shadow:
+        0 3px 12px rgba(195, 78, 140, 0.08) !important;
 }
 
 [data-testid="stChatInput"] > div,
@@ -620,8 +612,6 @@ button[data-testid="stBaseButton-primaryFormSubmit"] * {
     opacity: 1 !important;
 }
 
-/* Dark send button = white icon */
-
 [data-testid="stChatInput"] button {
     background: #b43f7d !important;
     color: #ffffff !important;
@@ -638,100 +628,107 @@ button[data-testid="stBaseButton-primaryFormSubmit"] * {
     background: #fff7fb !important;
 }
 
-/* ================================
-   ALERTS — CONTRAST FIX
-   ================================ */
+/* ==========================================
+   ALERTS — FULL CONTRAST FIX
+   ========================================== */
 
-/* Default alerts use light blue + dark text */
+/*
+   Streamlit may put the alert background on
+   either the outer wrapper or an inner element.
+   Set every layer to a light background.
+*/
 
-[data-testid="stAlert"] {
-    background: #e8f4ff !important;
-    border: 1px solid #a9cde9 !important;
-    border-radius: 0.8rem !important;
-    color: #203455 !important;
-}
-
-/* Prevent nested Streamlit notification
-   wrappers from keeping dark backgrounds */
-
-[data-testid="stAlert"] [data-baseweb="notification"],
-[data-testid="stAlert"]
+div[data-testid="stAlert"],
+div[data-testid="stAlert"] > div,
+div[data-testid="stAlert"] [data-baseweb="notification"],
+div[data-testid="stAlert"]
 [data-baseweb="notification"] > div {
-    background: transparent !important;
-    color: inherit !important;
+    background: #e8f4ff !important;
+    background-color: #e8f4ff !important;
+    color: #203455 !important;
+    -webkit-text-fill-color: #203455 !important;
+    border-radius: 12px !important;
 }
 
-/* Default alert text */
+/* Force all notification text to dark navy */
 
-[data-testid="stAlert"] p,
-[data-testid="stAlert"] li,
-[data-testid="stAlert"] span,
-[data-testid="stAlert"] svg {
-    color: inherit !important;
-    -webkit-text-fill-color: currentColor !important;
+div[data-testid="stAlert"] p,
+div[data-testid="stAlert"] span,
+div[data-testid="stAlert"] li,
+div[data-testid="stAlert"] small,
+div[data-testid="stAlert"]
+[data-testid="stMarkdownContainer"],
+div[data-testid="stAlert"]
+[data-testid="stMarkdownContainer"] * {
+    color: #203455 !important;
+    -webkit-text-fill-color: #203455 !important;
     opacity: 1 !important;
 }
 
-/* Success = light mint + dark green */
+/* Notification icons */
 
-[data-testid="stAlert"]:has(
+div[data-testid="stAlert"] svg {
+    color: #27679e !important;
+    stroke: #27679e !important;
+}
+
+/* ==========================================
+   SUCCESS NOTIFICATIONS
+   ========================================== */
+
+div[data-testid="stAlert"]:has(
     [data-testid="stNotificationContentSuccess"]
 ),
-[data-testid="stAlert"]:has(
+div[data-testid="stAlert"]:has(
     [data-testid="stAlertContentSuccess"]
 ),
-[data-testid="stAlert"][kind="success"],
-[data-testid="stAlert"][data-kind="success"] {
+div[data-testid="stAlert"][kind="success"],
+div[data-testid="stAlert"][data-kind="success"] {
     background: #eaf8f1 !important;
-    border-color: #9ed4b7 !important;
+    background-color: #eaf8f1 !important;
+    border: 1px solid #9ed4b7 !important;
     color: #14543b !important;
 }
 
-/* Warning = light cream + dark amber */
+/* ==========================================
+   WARNING NOTIFICATIONS
+   ========================================== */
 
-[data-testid="stAlert"]:has(
+div[data-testid="stAlert"]:has(
     [data-testid="stNotificationContentWarning"]
 ),
-[data-testid="stAlert"]:has(
+div[data-testid="stAlert"]:has(
     [data-testid="stAlertContentWarning"]
 ),
-[data-testid="stAlert"][kind="warning"],
-[data-testid="stAlert"][data-kind="warning"] {
+div[data-testid="stAlert"][kind="warning"],
+div[data-testid="stAlert"][data-kind="warning"] {
     background: #fff2df !important;
-    border-color: #e5c18a !important;
+    background-color: #fff2df !important;
+    border: 1px solid #e5c18a !important;
     color: #704400 !important;
 }
 
-/* Error = light pink + dark red */
+/* ==========================================
+   ERROR NOTIFICATIONS
+   ========================================== */
 
-[data-testid="stAlert"]:has(
+div[data-testid="stAlert"]:has(
     [data-testid="stNotificationContentError"]
 ),
-[data-testid="stAlert"]:has(
+div[data-testid="stAlert"]:has(
     [data-testid="stAlertContentError"]
 ),
-[data-testid="stAlert"][kind="error"],
-[data-testid="stAlert"][data-kind="error"] {
+div[data-testid="stAlert"][kind="error"],
+div[data-testid="stAlert"][data-kind="error"] {
     background: #fff0f2 !important;
-    border-color: #e8a7b4 !important;
+    background-color: #fff0f2 !important;
+    border: 1px solid #e8a7b4 !important;
     color: #872b43 !important;
 }
 
-/* Ensure alert content inherits
-   the correct foreground color */
-
-[data-testid="stAlert"] *,
-[data-testid="stAlert"] p,
-[data-testid="stAlert"] span,
-[data-testid="stAlert"] li {
-    color: inherit !important;
-    -webkit-text-fill-color: currentColor !important;
-    opacity: 1 !important;
-}
-
-/* ================================
+/* ==========================================
    FILE UPLOADER
-   ================================ */
+   ========================================== */
 
 [data-testid="stFileUploader"] {
     color: var(--belle-ink);
@@ -749,8 +746,6 @@ button[data-testid="stBaseButton-primaryFormSubmit"] * {
     color: #344765 !important;
 }
 
-/* Browse files = light button + dark text */
-
 [data-testid="stFileUploaderDropzone"] button {
     background: #ffffff !important;
     color: #71304f !important;
@@ -764,9 +759,9 @@ button[data-testid="stBaseButton-primaryFormSubmit"] * {
     -webkit-text-fill-color: #71304f !important;
 }
 
-/* ================================
+/* ==========================================
    SELECT BOXES AND DROPDOWNS
-   ================================ */
+   ========================================== */
 
 [data-testid="stSelectbox"] label,
 [data-testid="stMultiSelect"] label {
@@ -796,9 +791,9 @@ button[data-testid="stBaseButton-primaryFormSubmit"] * {
     color: #203455 !important;
 }
 
-/* ================================
-   CHECKBOXES, TOGGLES, RADIO
-   ================================ */
+/* ==========================================
+   CHECKBOXES, TOGGLES AND RADIO BUTTONS
+   ========================================== */
 
 [data-testid="stCheckbox"] label,
 [data-testid="stToggle"] label,
@@ -809,9 +804,9 @@ button[data-testid="stBaseButton-primaryFormSubmit"] * {
     color: #293d5f !important;
 }
 
-/* ================================
+/* ==========================================
    TABS
-   ================================ */
+   ========================================== */
 
 [data-baseweb="tab-list"] {
     border-bottom-color: #e8bfd3 !important;
@@ -827,9 +822,9 @@ button[data-testid="stBaseButton-primaryFormSubmit"] * {
     font-weight: 750 !important;
 }
 
-/* ================================
+/* ==========================================
    EXPANDERS
-   ================================ */
+   ========================================== */
 
 [data-testid="stExpander"] {
     background: #ffffff;
@@ -842,9 +837,9 @@ button[data-testid="stBaseButton-primaryFormSubmit"] * {
     color: #263b5e !important;
 }
 
-/* ================================
+/* ==========================================
    TABLES
-   ================================ */
+   ========================================== */
 
 [data-testid="stTable"] {
     color: #203455;
@@ -859,9 +854,9 @@ button[data-testid="stBaseButton-primaryFormSubmit"] * {
     color: #203455 !important;
 }
 
-/* ================================
+/* ==========================================
    CAPTIONS AND DIVIDERS
-   ================================ */
+   ========================================== */
 
 [data-testid="stCaptionContainer"],
 [data-testid="stCaptionContainer"] p {
@@ -873,9 +868,9 @@ hr {
     border-color: #e7cbdc !important;
 }
 
-/* ================================
+/* ==========================================
    MOBILE RESPONSIVENESS
-   ================================ */
+   ========================================== */
 
 @media (max-width: 760px) {
 
