@@ -8,6 +8,7 @@ from belle_ai.pages.research_chat import (
     groq_is_configured,
 )
 from belle_ai.pages.feature_previews import render_image_analysis
+from belle_ai.pages.knowledge_graph import render_knowledge_graph
 from belle_ai.pages.settings import render_settings
 from belle_ai.ui import (
     PAGE_DETAILS,
@@ -29,6 +30,7 @@ AVAILABLE_PAGES = [
     "My Documents",
     "Research Chat",
     "Image Analysis",
+    "Knowledge Graph"
     "Settings",
 ]
 
@@ -110,6 +112,12 @@ if page == "Image Analysis":
     title = "Image Analysis"
     subtitle = "Upload images and explore them with AI."
     eyebrow = "VISION AI"
+
+elif page == "Knowledge Graph":
+    title = "Knowledge Graph"
+    subtitle = "Explore AI-generated connections in your research."
+    eyebrow = "RESEARCH INTELLIGENCE"
+
 else:
     title, subtitle, eyebrow = PAGE_DETAILS[page]
 
@@ -130,6 +138,9 @@ elif page == "Research Chat":
 
 elif page == "Image Analysis":
     render_image_analysis()
+
+elif page == "Knowledge Graph":
+    render_knowledge_graph()
 
 elif page == "Settings":
     render_settings()
