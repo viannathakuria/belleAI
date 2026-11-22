@@ -41,7 +41,7 @@ PAGE_DETAILS = {
 
 
 def groq_is_configured() -> bool:
-    """Check whether a Groq API key is available."""
+    """Check whether a Groq API key is configured."""
     try:
         return bool(st.secrets.get("GROQ_API_KEY"))
     except Exception:
@@ -49,7 +49,7 @@ def groq_is_configured() -> bool:
 
 
 def inject_styles() -> None:
-    """Apply belleAI's pink and blue theme."""
+    """Apply belleAI's pink-and-blue theme."""
     st.markdown(
         """
         <style>
@@ -68,8 +68,8 @@ def inject_styles() -> None:
             background: #fff7fa;
             color: var(--ink);
             font-family: Inter, ui-sans-serif, system-ui,
-              -apple-system, BlinkMacSystemFont, "Segoe UI",
-              sans-serif;
+              -apple-system, BlinkMacSystemFont,
+              "Segoe UI", sans-serif;
           }
 
           [data-testid="stHeader"] {
@@ -81,8 +81,10 @@ def inject_styles() -> None:
             padding: 2rem 3rem 4rem;
           }
 
+          /* Sidebar */
+
           [data-testid="stSidebar"] {
-            background: #fff;
+            background: #ffffff;
             border-right: 1px solid #f0dce8;
           }
 
@@ -106,7 +108,7 @@ def inject_styles() -> None:
             background: linear-gradient(
               135deg, #df6fa8, #78b9ef
             );
-            color: #fff;
+            color: #ffffff;
             font-size: 1.55rem;
             font-weight: 700;
             line-height: 1;
@@ -195,6 +197,8 @@ def inject_styles() -> None:
             font-size: 0.75rem;
           }
 
+          /* Page headings */
+
           .page-heading {
             display: flex;
             align-items: flex-start;
@@ -263,6 +267,8 @@ def inject_styles() -> None:
             letter-spacing: 0.12em;
           }
 
+          /* Cards and empty states */
+
           .empty-state {
             padding: 2rem 1.2rem;
             border: 1px dashed #eabfd5;
@@ -300,27 +306,40 @@ def inject_styles() -> None:
             letter-spacing: 0.1em;
           }
 
-          div[data-testid="stMetric"] {
-            padding: 0.1rem 0;
-          }
-
-          div[data-testid="stMetricLabel"] {
-            color: #596987;
-            font-size: 0.78rem;
-          }
-
-          div[data-testid="stMetricValue"] {
-            color: #26365c;
-            font-size: 1.85rem;
-            font-weight: 700;
-            letter-spacing: -0.05em;
-          }
-
           div[data-testid="stVerticalBlockBorderWrapper"] {
             border-color: #f0dce8;
             border-radius: 0.95rem;
             background: #ffffff;
           }
+
+          /* Dashboard metrics — HIGH CONTRAST FIX */
+
+          [data-testid="stMetric"] {
+            color: #26365c !important;
+            padding: 0.1rem 0;
+          }
+
+          [data-testid="stMetricLabel"],
+          [data-testid="stMetricLabel"] *,
+          div[data-testid="stMetricLabel"],
+          div[data-testid="stMetricLabel"] p {
+            color: #34466d !important;
+            opacity: 1 !important;
+            font-size: 0.95rem !important;
+            font-weight: 700 !important;
+            -webkit-text-fill-color: #34466d !important;
+          }
+
+          [data-testid="stMetricValue"],
+          [data-testid="stMetricValue"] *,
+          div[data-testid="stMetricValue"] {
+            color: #26365c !important;
+            opacity: 1 !important;
+            font-weight: 750 !important;
+            -webkit-text-fill-color: #26365c !important;
+          }
+
+          /* Buttons */
 
           .stButton > button {
             border-radius: 0.68rem;
@@ -335,12 +354,31 @@ def inject_styles() -> None:
               rgba(130, 63, 112, 0.12);
           }
 
+          .stButton > button:not([kind="primary"]) {
+            background: #ffffff;
+            color: #833660;
+            border: 1px solid #eab6d0;
+          }
+
+          .stButton > button:not([kind="primary"]):hover {
+            background: #ffe8f2;
+            color: #833660;
+          }
+
+          .stButton > button[kind="primary"] {
+            background: linear-gradient(
+              110deg, #c65391, #518ac6
+            );
+            color: #ffffff;
+            border: none;
+          }
+
           .stTextArea textarea,
           .stTextInput input {
             border-radius: 0.7rem;
           }
 
-          /* Pink user messages */
+          /* Chat messages */
 
           [data-testid="stChatMessage"] {
             background: #eaf5ff !important;
@@ -351,6 +389,8 @@ def inject_styles() -> None:
             box-shadow: 0 2px 8px
               rgba(35, 54, 92, 0.05);
           }
+
+          /* Pink user messages */
 
           [data-testid="stChatMessage"]:has(
             [data-testid="chatAvatarIcon-user"]
@@ -403,7 +443,7 @@ def inject_styles() -> None:
             color: #455676 !important;
           }
 
-          /* Pink chat composer */
+          /* Pink chat input */
 
           [data-testid="stChatInput"],
           [data-testid="stBottom"]
@@ -439,27 +479,6 @@ def inject_styles() -> None:
 
           [data-testid="stChatInput"] button svg {
             color: #ffffff !important;
-          }
-
-          /* Readable buttons */
-
-          .stButton > button:not([kind="primary"]) {
-            background: #ffffff;
-            color: #833660;
-            border: 1px solid #eab6d0;
-          }
-
-          .stButton > button:not([kind="primary"]):hover {
-            background: #ffe8f2;
-            color: #833660;
-          }
-
-          .stButton > button[kind="primary"] {
-            background: linear-gradient(
-              110deg, #c65391, #518ac6
-            );
-            color: #ffffff;
-            border: none;
           }
 
           /* Mobile */
