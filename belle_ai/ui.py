@@ -22,16 +22,6 @@ PAGE_DETAILS = {
         "Ask questions, explore ideas, and get answers grounded in your uploaded PDFs.",
         "ASSISTANT",
     ),
-    "Image Analysis": (
-        "Image Analysis",
-        "Image interpretation is not connected yet. You can preview an image locally.",
-        "MULTIMODAL",
-    ),
-    "Knowledge Graph": (
-        "Knowledge Graph",
-        "A visual map of connections will be available in a later phase.",
-        "DISCOVERY",
-    ),
     "Settings": (
         "Settings",
         "See how this workspace handles documents and which capabilities are connected.",
@@ -48,22 +38,22 @@ def groq_is_configured() -> bool:
 
 
 def inject_styles() -> None:
-    """Apply belleAI's accessible pink-and-blue theme."""
+    """Apply belleAI's pink-and-blue theme with readable contrast."""
 
     st.markdown(
         """
 <style>
 
-/* ==========================================
-   BELLEAI — PINK + BLUE DESIGN SYSTEM
-   ========================================== */
+/* ================================
+   BELLEAI COLOR SYSTEM
+   ================================ */
 
 :root {
-    --belle-ink: #243657;
+    --belle-ink: #203455;
     --belle-heading: #1d3054;
     --belle-muted: #526583;
 
-    --belle-pink: #c34e8c;
+    --belle-pink: #b43f7d;
     --belle-pink-dark: #923462;
     --belle-pink-light: #f9dce9;
 
@@ -76,26 +66,26 @@ def inject_styles() -> None:
     --belle-border: #e7cbdc;
 
     --belle-gradient:
-        linear-gradient(110deg, #c34e8c, #4789c5);
+        linear-gradient(110deg, #b43f7d, #3475b1);
 }
 
-/* ==========================================
+/* ================================
    MAIN APPLICATION
-   ========================================== */
+   ================================ */
 
-.stApp {
+.stApp,
+[data-testid="stAppViewContainer"] {
     background: var(--belle-background);
     color: var(--belle-ink);
+}
+
+.stApp {
     font-family:
         Inter,
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
         sans-serif;
-}
-
-[data-testid="stAppViewContainer"] {
-    background: var(--belle-background);
 }
 
 [data-testid="stHeader"] {
@@ -107,8 +97,6 @@ def inject_styles() -> None:
     max-width: 1480px;
     padding: 2rem 3rem 4rem;
 }
-
-/* Default content text */
 
 [data-testid="stMain"] p,
 [data-testid="stMain"] li,
@@ -127,9 +115,9 @@ def inject_styles() -> None:
     color: var(--belle-blue-dark);
 }
 
-/* ==========================================
+/* ================================
    SIDEBAR
-   ========================================== */
+   ================================ */
 
 [data-testid="stSidebar"] {
     background: #fff1f7;
@@ -145,8 +133,6 @@ def inject_styles() -> None:
 [data-testid="stSidebar"] label {
     color: var(--belle-ink);
 }
-
-/* Branding */
 
 .brand-lockup {
     display: flex;
@@ -228,7 +214,7 @@ def inject_styles() -> None:
     display: none;
 }
 
-/* Sidebar connection status */
+/* Sidebar AI status */
 
 .sidebar-status {
     margin: 0.5rem 0 0.35rem;
@@ -260,9 +246,9 @@ def inject_styles() -> None:
     font-size: 0.75rem;
 }
 
-/* ==========================================
+/* ================================
    PAGE HEADINGS
-   ========================================== */
+   ================================ */
 
 .page-heading {
     display: flex;
@@ -332,9 +318,9 @@ def inject_styles() -> None:
     letter-spacing: 0.12em;
 }
 
-/* ==========================================
-   DASHBOARD CARDS
-   ========================================== */
+/* ================================
+   DASHBOARD CARDS AND METRICS
+   ================================ */
 
 div[data-testid="stVerticalBlockBorderWrapper"] {
     border-color: #e5c3d6;
@@ -342,17 +328,12 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     background: #ffffff;
 }
 
-/* METRIC LABEL FIX */
-
 [data-testid="stMetric"] {
-    padding: 0.1rem 0;
     color: var(--belle-heading) !important;
 }
 
 [data-testid="stMetricLabel"],
-[data-testid="stMetricLabel"] *,
-[data-testid="stMetricLabel"] p,
-[data-testid="stMetricLabel"] span {
+[data-testid="stMetricLabel"] * {
     color: #344765 !important;
     -webkit-text-fill-color: #344765 !important;
     opacity: 1 !important;
@@ -361,8 +342,7 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
 }
 
 [data-testid="stMetricValue"],
-[data-testid="stMetricValue"] *,
-[data-testid="stMetricValue"] p {
+[data-testid="stMetricValue"] * {
     color: #203455 !important;
     -webkit-text-fill-color: #203455 !important;
     opacity: 1 !important;
@@ -371,13 +351,13 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
 
 [data-testid="stMetricDelta"],
 [data-testid="stMetricDelta"] * {
-    font-weight: 650;
     opacity: 1 !important;
+    font-weight: 650;
 }
 
-/* ==========================================
+/* ================================
    EMPTY STATES AND DOCUMENTS
-   ========================================== */
+   ================================ */
 
 .empty-state {
     padding: 2rem 1.2rem;
@@ -416,52 +396,82 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     letter-spacing: 0.1em;
 }
 
-/* ==========================================
-   BUTTONS
-   ========================================== */
+/* ================================
+   BUTTONS — CONTRAST FIX
+   ================================ */
+
+/* General button appearance */
 
 .stButton > button,
-.stDownloadButton > button {
+.stDownloadButton > button,
+.stFormSubmitButton > button {
     border-radius: 0.7rem !important;
     font-weight: 700 !important;
-    transition:
-        background 140ms ease,
-        box-shadow 140ms ease;
+    transition: background 140ms ease;
 }
 
-/* Secondary buttons */
+/* Light buttons = dark text */
 
 .stButton > button:not([kind="primary"]),
-.stDownloadButton > button:not([kind="primary"]) {
-    background: #ffffff !important;
-    color: #81335e !important;
-    border: 1px solid #dc9ebc !important;
+.stDownloadButton > button:not([kind="primary"]),
+.stFormSubmitButton > button:not([kind="primary"]),
+button[data-testid="stBaseButton-secondary"],
+button[data-testid="stBaseButton-secondaryFormSubmit"] {
+    background: #fff5fa !important;
+    color: #71304f !important;
+    -webkit-text-fill-color: #71304f !important;
+    border: 1px solid #ce88ac !important;
 }
 
 .stButton > button:not([kind="primary"]) *,
-.stDownloadButton > button:not([kind="primary"]) * {
-    color: #81335e !important;
+.stDownloadButton > button:not([kind="primary"]) *,
+.stFormSubmitButton > button:not([kind="primary"]) *,
+button[data-testid="stBaseButton-secondary"] *,
+button[data-testid="stBaseButton-secondaryFormSubmit"] * {
+    color: #71304f !important;
+    -webkit-text-fill-color: #71304f !important;
 }
 
-.stButton > button:not([kind="primary"]):hover,
-.stDownloadButton > button:not([kind="primary"]):hover {
-    background: #fce5ef !important;
-    border-color: #bf6092 !important;
-}
-
-/* Primary buttons */
+/* Dark gradient buttons = white text */
 
 .stButton > button[kind="primary"],
-.stDownloadButton > button[kind="primary"] {
+.stDownloadButton > button[kind="primary"],
+.stFormSubmitButton > button[kind="primary"],
+button[data-testid="stBaseButton-primary"],
+button[data-testid="stBaseButton-primaryFormSubmit"] {
     background: var(--belle-gradient) !important;
     color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
     border: 1px solid transparent !important;
 }
 
 .stButton > button[kind="primary"] *,
-.stDownloadButton > button[kind="primary"] * {
+.stDownloadButton > button[kind="primary"] *,
+.stFormSubmitButton > button[kind="primary"] *,
+button[data-testid="stBaseButton-primary"] *,
+button[data-testid="stBaseButton-primaryFormSubmit"] * {
     color: #ffffff !important;
+    -webkit-text-fill-color: #ffffff !important;
 }
+
+/* Hover states */
+
+.stButton > button:not([kind="primary"]):hover,
+.stDownloadButton > button:not([kind="primary"]):hover {
+    background: #f9dce9 !important;
+    border-color: #b43f7d !important;
+}
+
+.stButton > button[kind="primary"]:hover,
+.stDownloadButton > button[kind="primary"]:hover {
+    background: linear-gradient(
+        110deg,
+        #923462,
+        #27679e
+    ) !important;
+}
+
+/* Disabled buttons */
 
 .stButton > button:disabled,
 .stDownloadButton > button:disabled {
@@ -469,9 +479,9 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     cursor: not-allowed;
 }
 
-/* ==========================================
-   TEXT INPUTS AND TEXT AREAS
-   ========================================== */
+/* ================================
+   TEXT INPUTS
+   ================================ */
 
 [data-testid="stTextInput"] input,
 [data-testid="stTextArea"] textarea,
@@ -479,6 +489,7 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
 .stTextArea textarea {
     background: #ffffff !important;
     color: #203455 !important;
+    -webkit-text-fill-color: #203455 !important;
     border-radius: 0.7rem !important;
     caret-color: #a43d78 !important;
 }
@@ -486,6 +497,7 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
 [data-testid="stTextInput"] input::placeholder,
 [data-testid="stTextArea"] textarea::placeholder {
     color: #66738b !important;
+    -webkit-text-fill-color: #66738b !important;
     opacity: 1 !important;
 }
 
@@ -495,9 +507,9 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     font-weight: 650 !important;
 }
 
-/* ==========================================
+/* ================================
    CHAT MESSAGES
-   ========================================== */
+   ================================ */
 
 [data-testid="stChatMessage"] {
     background: #e8f4ff !important;
@@ -508,7 +520,7 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     box-shadow: 0 2px 8px rgba(35, 54, 92, 0.05);
 }
 
-/* User messages: pink */
+/* User = pink */
 
 [data-testid="stChatMessage"]:has(
     [data-testid="chatAvatarIcon-user"]
@@ -517,7 +529,7 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     border: 1px solid #e4aac5 !important;
 }
 
-/* AI messages: blue */
+/* Assistant = blue */
 
 [data-testid="stChatMessage"]:has(
     [data-testid="chatAvatarIcon-assistant"]
@@ -527,7 +539,7 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     border-left: 4px solid #4789c5 !important;
 }
 
-/* Chat text */
+/* Readable chat text */
 
 [data-testid="stChatMessage"]
 [data-testid="stMarkdownContainer"],
@@ -536,6 +548,7 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
 [data-testid="stChatMessage"]
 [data-testid="stMarkdownContainer"] li {
     color: #203455 !important;
+    -webkit-text-fill-color: #203455 !important;
     font-size: 1rem !important;
     line-height: 1.75 !important;
 }
@@ -569,17 +582,17 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     color: #435775 !important;
 }
 
-/* ==========================================
+/* ================================
    CHAT INPUT
-   ========================================== */
-
-/* Fix outer input and inner white rectangle */
+   ================================ */
 
 [data-testid="stChatInput"] {
     background: #fff0f7 !important;
     border: 1.5px solid #d99ebc !important;
     border-radius: 14px !important;
-    box-shadow: 0 3px 12px rgba(195, 78, 140, 0.08) !important;
+    box-shadow: 0 3px 12px rgba(
+        195, 78, 140, 0.08
+    ) !important;
 }
 
 [data-testid="stChatInput"] > div,
@@ -607,8 +620,10 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     opacity: 1 !important;
 }
 
+/* Dark send button = white icon */
+
 [data-testid="stChatInput"] button {
-    background: #c34e8c !important;
+    background: #b43f7d !important;
     color: #ffffff !important;
     border-radius: 10px !important;
 }
@@ -618,80 +633,105 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     stroke: #ffffff !important;
 }
 
-/* Bottom composer area */
-
-[data-testid="stBottom"] {
-    background: #fff7fb !important;
-}
-
+[data-testid="stBottom"],
 [data-testid="stBottomBlockContainer"] {
     background: #fff7fb !important;
 }
 
-/* ==========================================
-   ALERTS AND NOTIFICATIONS
-   ========================================== */
+/* ================================
+   ALERTS — CONTRAST FIX
+   ================================ */
 
-/* Information */
-
-[data-testid="stAlert"][data-baseweb="notification"] {
-    border-radius: 0.8rem;
-}
+/* Default alerts use light blue + dark text */
 
 [data-testid="stAlert"] {
+    background: #e8f4ff !important;
+    border: 1px solid #a9cde9 !important;
+    border-radius: 0.8rem !important;
     color: #203455 !important;
 }
+
+/* Prevent nested Streamlit notification
+   wrappers from keeping dark backgrounds */
+
+[data-testid="stAlert"] [data-baseweb="notification"],
+[data-testid="stAlert"]
+[data-baseweb="notification"] > div {
+    background: transparent !important;
+    color: inherit !important;
+}
+
+/* Default alert text */
 
 [data-testid="stAlert"] p,
 [data-testid="stAlert"] li,
-[data-testid="stAlert"] span {
-    color: #203455 !important;
+[data-testid="stAlert"] span,
+[data-testid="stAlert"] svg {
+    color: inherit !important;
+    -webkit-text-fill-color: currentColor !important;
     opacity: 1 !important;
 }
 
-[data-testid="stAlert"] a {
-    color: #245c91 !important;
-}
-
-/* Info alerts */
-
-[data-testid="stAlert"]:has(
-    [data-testid="stNotificationContentInfo"]
-) {
-    background: #e8f4ff !important;
-    border: 1px solid #a9cde9 !important;
-}
-
-/* Success alerts */
+/* Success = light mint + dark green */
 
 [data-testid="stAlert"]:has(
     [data-testid="stNotificationContentSuccess"]
-) {
+),
+[data-testid="stAlert"]:has(
+    [data-testid="stAlertContentSuccess"]
+),
+[data-testid="stAlert"][kind="success"],
+[data-testid="stAlert"][data-kind="success"] {
     background: #eaf8f1 !important;
-    border: 1px solid #9ed4b7 !important;
+    border-color: #9ed4b7 !important;
+    color: #14543b !important;
 }
 
-/* Warning alerts */
+/* Warning = light cream + dark amber */
 
 [data-testid="stAlert"]:has(
     [data-testid="stNotificationContentWarning"]
-) {
+),
+[data-testid="stAlert"]:has(
+    [data-testid="stAlertContentWarning"]
+),
+[data-testid="stAlert"][kind="warning"],
+[data-testid="stAlert"][data-kind="warning"] {
     background: #fff2df !important;
-    border: 1px solid #e5c18a !important;
+    border-color: #e5c18a !important;
+    color: #704400 !important;
 }
 
-/* Error alerts */
+/* Error = light pink + dark red */
 
 [data-testid="stAlert"]:has(
     [data-testid="stNotificationContentError"]
-) {
+),
+[data-testid="stAlert"]:has(
+    [data-testid="stAlertContentError"]
+),
+[data-testid="stAlert"][kind="error"],
+[data-testid="stAlert"][data-kind="error"] {
     background: #fff0f2 !important;
-    border: 1px solid #e8a7b4 !important;
+    border-color: #e8a7b4 !important;
+    color: #872b43 !important;
 }
 
-/* ==========================================
+/* Ensure alert content inherits
+   the correct foreground color */
+
+[data-testid="stAlert"] *,
+[data-testid="stAlert"] p,
+[data-testid="stAlert"] span,
+[data-testid="stAlert"] li {
+    color: inherit !important;
+    -webkit-text-fill-color: currentColor !important;
+    opacity: 1 !important;
+}
+
+/* ================================
    FILE UPLOADER
-   ========================================== */
+   ================================ */
 
 [data-testid="stFileUploader"] {
     color: var(--belle-ink);
@@ -709,16 +749,24 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     color: #344765 !important;
 }
 
+/* Browse files = light button + dark text */
+
 [data-testid="stFileUploaderDropzone"] button {
     background: #ffffff !important;
-    color: #81335e !important;
+    color: #71304f !important;
+    -webkit-text-fill-color: #71304f !important;
     border: 1px solid #dba9c5 !important;
     border-radius: 0.65rem !important;
 }
 
-/* ==========================================
+[data-testid="stFileUploaderDropzone"] button * {
+    color: #71304f !important;
+    -webkit-text-fill-color: #71304f !important;
+}
+
+/* ================================
    SELECT BOXES AND DROPDOWNS
-   ========================================== */
+   ================================ */
 
 [data-testid="stSelectbox"] label,
 [data-testid="stMultiSelect"] label {
@@ -727,16 +775,13 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
 }
 
 [data-testid="stSelectbox"] [data-baseweb="select"],
-[data-testid="stMultiSelect"] [data-baseweb="select"] {
+[data-testid="stMultiSelect"] [data-baseweb="select"],
+[data-testid="stSelectbox"]
+[data-baseweb="select"] > div,
+[data-testid="stMultiSelect"]
+[data-baseweb="select"] > div {
     background: #ffffff !important;
     color: #203455 !important;
-}
-
-[data-testid="stSelectbox"] [data-baseweb="select"] > div,
-[data-testid="stMultiSelect"] [data-baseweb="select"] > div {
-    background: #ffffff !important;
-    color: #203455 !important;
-    border-color: #dba9c5 !important;
 }
 
 [data-baseweb="popover"],
@@ -751,25 +796,22 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     color: #203455 !important;
 }
 
-/* ==========================================
-   CHECKBOXES, TOGGLES AND RADIO BUTTONS
-   ========================================== */
+/* ================================
+   CHECKBOXES, TOGGLES, RADIO
+   ================================ */
 
 [data-testid="stCheckbox"] label,
 [data-testid="stToggle"] label,
-[data-testid="stRadio"] label {
-    color: #293d5f !important;
-}
-
+[data-testid="stRadio"] label,
 [data-testid="stCheckbox"] p,
 [data-testid="stToggle"] p,
 [data-testid="stRadio"] p {
     color: #293d5f !important;
 }
 
-/* ==========================================
+/* ================================
    TABS
-   ========================================== */
+   ================================ */
 
 [data-baseweb="tab-list"] {
     border-bottom-color: #e8bfd3 !important;
@@ -785,9 +827,9 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     font-weight: 750 !important;
 }
 
-/* ==========================================
+/* ================================
    EXPANDERS
-   ========================================== */
+   ================================ */
 
 [data-testid="stExpander"] {
     background: #ffffff;
@@ -800,9 +842,9 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     color: #263b5e !important;
 }
 
-/* ==========================================
-   DATAFRAMES AND TABLES
-   ========================================== */
+/* ================================
+   TABLES
+   ================================ */
 
 [data-testid="stTable"] {
     color: #203455;
@@ -817,9 +859,9 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     color: #203455 !important;
 }
 
-/* ==========================================
+/* ================================
    CAPTIONS AND DIVIDERS
-   ========================================== */
+   ================================ */
 
 [data-testid="stCaptionContainer"],
 [data-testid="stCaptionContainer"] p {
@@ -831,9 +873,9 @@ hr {
     border-color: #e7cbdc !important;
 }
 
-/* ==========================================
+/* ================================
    MOBILE RESPONSIVENESS
-   ========================================== */
+   ================================ */
 
 @media (max-width: 760px) {
 
