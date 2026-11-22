@@ -1,3 +1,4 @@
+
 from __future__ import annotations
 
 from belle_ai.ui import format_bytes, navigate_to, render_empty_state
@@ -15,12 +16,11 @@ def render_dashboard() -> None:
         unsafe_allow_html=True,
     )
 
-    metrics = st.columns(4)
+    metrics = st.columns(3)
     metric_values = [
         ("Documents", len(documents)),
         ("Pages", total_pages),
         ("Words extracted", f"{total_words:,}"),
-        ("AI connection", "Not connected"),
     ]
     for column, (label, value) in zip(metrics, metric_values):
         with column:
@@ -68,17 +68,20 @@ def render_dashboard() -> None:
         with st.container(border=True):
             st.markdown("#### Explore belleAI")
             st.markdown(
-                "Your document library is active. The connected AI tools are still being prepared."
+                "Your document library is ready. Use Research Chat to ask questions about your uploaded PDFs."
             )
             st.write("")
             st.markdown("**Research Chat**")
-            st.caption("Interface preview only — it will not generate answers yet.")
+            st.caption(
+                "Ask questions about your documents and get AI-generated answers with page citations."
+            )
             st.button(
-                "View chat preview",
+                "Open Research Chat",
                 key="dashboard_open_chat",
                 on_click=navigate_to,
                 args=("Research Chat",),
                 use_container_width=True,
             )
             st.markdown("**Image Analysis · Knowledge Graph**")
-            st.caption("These pages explain what is planned and what is not active.")
+            st.caption(
+                "These pages explain what is planned and what is not active.")
