@@ -291,6 +291,70 @@ def inject_styles() -> None:
             .page-heading { flex-direction: column; margin-bottom: 1.5rem; }
             .connection-badge { margin-top: 0; }
           }
+
+          /* High-contrast research chat: readable on desktop and mobile. */
+          [data-testid="stChatMessage"] {
+            background: #ffffff !important;
+            border: 1px solid #d9d4ed !important;
+            border-radius: 1rem !important;
+            padding: 1.15rem 1.3rem !important;
+            margin-bottom: 1rem !important;
+            box-shadow: 0 2px 8px rgba(35, 24, 72, 0.045);
+          }
+          /* User messages are lavender; AI responses stay white for long PDF answers. */
+          [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) {
+            background: #eee8ff !important;
+            border-color: #c6b5f1 !important;
+          }
+          [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) {
+            background: #ffffff !important;
+            border-left: 4px solid #6245b5 !important;
+          }
+          [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"],
+          [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] p,
+          [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] li {
+            color: #211b36 !important;
+            font-size: 1rem !important;
+            line-height: 1.75 !important;
+          }
+          [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] strong {
+            color: #25164e !important;
+            font-weight: 750 !important;
+          }
+          [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] a {
+            color: #49309e !important;
+            text-decoration: underline;
+          }
+          [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] code {
+            color: #2c1e60 !important;
+            background: #f0ecfa !important;
+          }
+          [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] hr {
+            border-color: #d9d4e8 !important;
+          }
+          [data-testid="stChatInput"] {
+            border: 1px solid #bcb0df !important;
+            border-radius: 0.9rem !important;
+            background: #ffffff !important;
+          }
+          [data-testid="stChatInput"] textarea {
+            color: #201a36 !important;
+            background: #ffffff !important;
+            font-size: 1rem !important;
+          }
+          [data-testid="stChatInput"] textarea::placeholder {
+            color: #625b75 !important;
+            opacity: 1;
+          }
+          [data-testid="stChatMessage"] [data-testid="stCaptionContainer"],
+          [data-testid="stChatMessage"] small {
+            color: #514866 !important;
+          }
+          @media (max-width: 760px) {
+            [data-testid="stChatMessage"] {
+              padding: 0.85rem 0.8rem !important;
+            }
+          }
         </style>
         """,
         unsafe_allow_html=True,
