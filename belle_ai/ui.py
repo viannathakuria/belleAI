@@ -49,27 +49,31 @@ def groq_is_configured() -> bool:
 
 
 def inject_styles() -> None:
-    """Apply the belleAI visual theme to Streamlit's built-in UI."""
+    """Apply belleAI's pink and blue theme."""
     st.markdown(
         """
         <style>
           :root {
-            --ink: #17213d;
-            --muted: #68728c;
-            --line: #e6e9f2;
-            --lavender: #7767d8;
-            --lavender-soft: #f0edff;
+            --ink: #26365c;
+            --muted: #596987;
+            --line: #ecdce8;
+            --lavender: #c65391;
+            --lavender-soft: #fff0f7;
             --surface: #ffffff;
+            --pink: #f9d7e6;
+            --blue: #eaf5ff;
           }
 
           .stApp {
-            background: #f7f8fc;
+            background: #fff7fa;
             color: var(--ink);
-            font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            font-family: Inter, ui-sans-serif, system-ui,
+              -apple-system, BlinkMacSystemFont, "Segoe UI",
+              sans-serif;
           }
 
           [data-testid="stHeader"] {
-            background: rgba(247, 248, 252, 0.92);
+            background: rgba(255, 247, 250, 0.95);
           }
 
           [data-testid="stAppViewContainer"] > .main .block-container {
@@ -78,8 +82,8 @@ def inject_styles() -> None:
           }
 
           [data-testid="stSidebar"] {
-            background: #ffffff;
-            border-right: 1px solid var(--line);
+            background: #fff;
+            border-right: 1px solid #f0dce8;
           }
 
           [data-testid="stSidebar"] > div:first-child {
@@ -99,27 +103,29 @@ def inject_styles() -> None:
             height: 2.65rem;
             place-items: center;
             border-radius: 0.9rem;
-            background: linear-gradient(145deg, #252f55, #6256b5);
-            color: #ffffff;
+            background: linear-gradient(
+              135deg, #df6fa8, #78b9ef
+            );
+            color: #fff;
             font-size: 1.55rem;
             font-weight: 700;
             line-height: 1;
           }
 
           .brand-name {
-            color: #202a48;
+            color: #26365c;
             font-size: 1.17rem;
             font-weight: 720;
             letter-spacing: -0.045em;
           }
 
           .brand-name span {
-            color: var(--lavender);
+            color: #c65391;
           }
 
           .brand-caption {
             margin-top: 0.16rem;
-            color: #8a92a8;
+            color: #697995;
             font-size: 0.58rem;
             font-weight: 700;
             letter-spacing: 0.14em;
@@ -127,7 +133,7 @@ def inject_styles() -> None:
 
           .sidebar-section-label {
             margin: 0.5rem 0 0.45rem 0.45rem;
-            color: #9299ab;
+            color: #697995;
             font-size: 0.64rem;
             font-weight: 700;
             letter-spacing: 0.13em;
@@ -141,34 +147,37 @@ def inject_styles() -> None:
             min-height: 2.65rem;
             padding: 0.45rem 0.65rem;
             border-radius: 0.7rem;
-            color: #58627b;
+            color: #455676;
             font-size: 0.9rem;
-            transition: background 140ms ease, color 140ms ease;
+            transition: background 140ms ease,
+                        color 140ms ease;
           }
 
-          [data-testid="stSidebar"] [role="radiogroup"] label:has(input:checked) {
-            background: var(--lavender-soft);
-            color: #5143aa;
+          [data-testid="stSidebar"] [role="radiogroup"]
+          label:has(input:checked) {
+            background: #ffe4f0;
+            color: #91366c;
             font-weight: 650;
           }
 
-          [data-testid="stSidebar"] [role="radiogroup"] label > div:first-child {
+          [data-testid="stSidebar"] [role="radiogroup"]
+          label > div:first-child {
             display: none;
           }
 
           .sidebar-status {
             margin: 0.5rem 0 0.35rem;
             padding: 0.9rem 0.85rem;
-            border: 1px solid var(--line);
+            border: 1px solid #f0dce8;
             border-radius: 0.8rem;
-            background: #fbfbfe;
+            background: #fff9fc;
           }
 
           .sidebar-status-title {
             display: flex;
             align-items: center;
             gap: 0.45rem;
-            color: #303a56;
+            color: #26365c;
             font-size: 0.79rem;
             font-weight: 650;
           }
@@ -182,7 +191,7 @@ def inject_styles() -> None:
 
           .sidebar-status-copy {
             margin: 0.35rem 0 0 0.9rem;
-            color: #8790a5;
+            color: #586987;
             font-size: 0.75rem;
           }
 
@@ -196,7 +205,7 @@ def inject_styles() -> None:
 
           .page-eyebrow {
             margin: 0 0 0.45rem;
-            color: #786bc6;
+            color: #b24784;
             font-size: 0.67rem;
             font-weight: 750;
             letter-spacing: 0.14em;
@@ -204,7 +213,7 @@ def inject_styles() -> None:
 
           .page-title {
             margin: 0;
-            color: #182341;
+            color: #26365c;
             font-size: clamp(1.7rem, 3vw, 2.35rem);
             font-weight: 720;
             letter-spacing: -0.055em;
@@ -213,7 +222,7 @@ def inject_styles() -> None:
 
           .page-subtitle {
             margin: 0.62rem 0 0;
-            color: #707991;
+            color: #596987;
             font-size: 0.96rem;
             line-height: 1.55;
           }
@@ -225,10 +234,10 @@ def inject_styles() -> None:
             gap: 0.48rem;
             margin-top: 0.25rem;
             padding: 0.52rem 0.75rem;
-            border: 1px solid #e7e8f1;
+            border: 1px solid #f0dce8;
             border-radius: 999px;
             background: #ffffff;
-            color: #6b748b;
+            color: #455676;
             font-size: 0.74rem;
             font-weight: 600;
           }
@@ -242,13 +251,13 @@ def inject_styles() -> None:
 
           .section-intro {
             margin: -0.75rem 0 1.35rem;
-            color: #737c93;
+            color: #596987;
             font-size: 0.91rem;
             line-height: 1.55;
           }
 
           .eyebrow-note {
-            color: #8679cc;
+            color: #b24784;
             font-size: 0.68rem;
             font-weight: 720;
             letter-spacing: 0.12em;
@@ -256,15 +265,15 @@ def inject_styles() -> None:
 
           .empty-state {
             padding: 2rem 1.2rem;
-            border: 1px dashed #d8dceb;
+            border: 1px dashed #eabfd5;
             border-radius: 0.95rem;
-            background: rgba(255, 255, 255, 0.72);
+            background: #ffffff;
             text-align: center;
           }
 
           .empty-state h3 {
             margin: 0.15rem 0 0.4rem;
-            color: #26314f;
+            color: #26365c;
             font-size: 1.08rem;
             font-weight: 680;
           }
@@ -272,20 +281,20 @@ def inject_styles() -> None:
           .empty-state p {
             max-width: 32rem;
             margin: 0 auto;
-            color: #768098;
+            color: #596987;
             font-size: 0.89rem;
             line-height: 1.55;
           }
 
           .document-name {
             overflow-wrap: anywhere;
-            color: #26314f;
+            color: #26365c;
             font-size: 0.98rem;
             font-weight: 670;
           }
 
           .feature-label {
-            color: #8174cb;
+            color: #b24784;
             font-size: 0.68rem;
             font-weight: 730;
             letter-spacing: 0.1em;
@@ -296,32 +305,34 @@ def inject_styles() -> None:
           }
 
           div[data-testid="stMetricLabel"] {
-            color: #798198;
+            color: #596987;
             font-size: 0.78rem;
           }
 
           div[data-testid="stMetricValue"] {
-            color: #202b49;
+            color: #26365c;
             font-size: 1.85rem;
             font-weight: 700;
             letter-spacing: -0.05em;
           }
 
           div[data-testid="stVerticalBlockBorderWrapper"] {
-            border-color: var(--line);
+            border-color: #f0dce8;
             border-radius: 0.95rem;
-            background: var(--surface);
+            background: #ffffff;
           }
 
           .stButton > button {
             border-radius: 0.68rem;
             font-weight: 620;
-            transition: transform 120ms ease, box-shadow 120ms ease;
+            transition: transform 120ms ease,
+                        box-shadow 120ms ease;
           }
 
           .stButton > button:hover:not(:disabled) {
             transform: translateY(-1px);
-            box-shadow: 0 5px 14px rgba(38, 42, 82, 0.08);
+            box-shadow: 0 5px 14px
+              rgba(130, 63, 112, 0.12);
           }
 
           .stTextArea textarea,
@@ -329,84 +340,99 @@ def inject_styles() -> None:
             border-radius: 0.7rem;
           }
 
-          /* Chat message cards */
+          /* Pink user messages */
 
           [data-testid="stChatMessage"] {
-            background: #ffffff !important;
-            border: 1px solid #d9d4ed !important;
+            background: #eaf5ff !important;
+            border: 1px solid #b9dfff !important;
             border-radius: 1rem !important;
             padding: 1.15rem 1.3rem !important;
             margin-bottom: 1rem !important;
-            box-shadow: 0 2px 8px rgba(35, 24, 72, 0.045);
+            box-shadow: 0 2px 8px
+              rgba(35, 54, 92, 0.05);
           }
 
-          [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) {
-            background: #eee8ff !important;
-            border-color: #c6b5f1 !important;
+          [data-testid="stChatMessage"]:has(
+            [data-testid="chatAvatarIcon-user"]
+          ) {
+            background: #f9d7e6 !important;
+            border-color: #e8a9c9 !important;
           }
 
-          [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) {
-            background: #ffffff !important;
-            border-left: 4px solid #6245b5 !important;
+          /* Blue AI messages */
+
+          [data-testid="stChatMessage"]:has(
+            [data-testid="chatAvatarIcon-assistant"]
+          ) {
+            background: #eaf5ff !important;
+            border-left: 4px solid #6aa8de !important;
           }
 
-          [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"],
-          [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] p,
-          [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] li {
-            color: #211b36 !important;
+          [data-testid="stChatMessage"]
+          [data-testid="stMarkdownContainer"],
+          [data-testid="stChatMessage"]
+          [data-testid="stMarkdownContainer"] p,
+          [data-testid="stChatMessage"]
+          [data-testid="stMarkdownContainer"] li {
+            color: #26365c !important;
             font-size: 1rem !important;
             line-height: 1.75 !important;
           }
 
-          [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] strong {
-            color: #25164e !important;
+          [data-testid="stChatMessage"]
+          [data-testid="stMarkdownContainer"] strong {
+            color: #172744 !important;
             font-weight: 750 !important;
           }
 
-          [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] a {
-            color: #49309e !important;
+          [data-testid="stChatMessage"]
+          [data-testid="stMarkdownContainer"] a {
+            color: #91416f !important;
             text-decoration: underline;
           }
 
-          [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] code {
-            color: #2c1e60 !important;
-            background: #f0ecfa !important;
+          [data-testid="stChatMessage"]
+          [data-testid="stMarkdownContainer"] code {
+            color: #26365c !important;
+            background: #ffffff !important;
           }
 
-          [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] hr {
-            border-color: #d9d4e8 !important;
-          }
-
-          [data-testid="stChatMessage"] [data-testid="stCaptionContainer"],
+          [data-testid="stChatMessage"]
+          [data-testid="stCaptionContainer"],
           [data-testid="stChatMessage"] small {
-            color: #514866 !important;
+            color: #455676 !important;
           }
 
-          /* Lavender chat input — removes white inner rectangle */
+          /* Pink chat composer */
 
+          [data-testid="stChatInput"],
+          [data-testid="stBottom"]
           [data-testid="stChatInput"] {
-            background: #eee8ff !important;
-            border: 1.5px solid #b9a5e8 !important;
+            background: #fff0f7 !important;
+            border: 1.5px solid #eab6d0 !important;
             border-radius: 14px !important;
-            box-shadow: 0 3px 12px rgba(98, 69, 181, 0.08) !important;
+            box-shadow: 0 3px 12px
+              rgba(198, 83, 145, 0.08) !important;
           }
 
           [data-testid="stChatInput"] > div,
           [data-testid="stChatInput"] textarea,
-          [data-testid="stChatInput"] textarea:focus {
+          [data-testid="stChatInput"] textarea:focus,
+          [data-testid="stChatInput"] [data-baseweb],
+          [data-testid="stChatInput"] [data-baseweb] > div {
             background: transparent !important;
             background-color: transparent !important;
-            color: #24183f !important;
+            color: #26365c !important;
             box-shadow: none !important;
           }
 
           [data-testid="stChatInput"] textarea::placeholder {
-            color: #65548a !important;
+            color: #71677d !important;
             opacity: 1 !important;
           }
 
           [data-testid="stChatInput"] button {
-            background: #6245b5 !important;
+            background: #c65391 !important;
             color: #ffffff !important;
             border-radius: 10px !important;
           }
@@ -415,23 +441,32 @@ def inject_styles() -> None:
             color: #ffffff !important;
           }
 
-          /* Improve button contrast */
+          /* Readable buttons */
 
           .stButton > button:not([kind="primary"]) {
             background: #ffffff;
-            color: #332455;
-            border: 1px solid #c9bce8;
+            color: #833660;
+            border: 1px solid #eab6d0;
           }
 
           .stButton > button:not([kind="primary"]):hover {
-            background: #f0eaff;
-            color: #332455;
+            background: #ffe8f2;
+            color: #833660;
           }
 
-          /* Mobile layout */
+          .stButton > button[kind="primary"] {
+            background: linear-gradient(
+              110deg, #c65391, #518ac6
+            );
+            color: #ffffff;
+            border: none;
+          }
+
+          /* Mobile */
 
           @media (max-width: 760px) {
-            [data-testid="stAppViewContainer"] > .main .block-container {
+            [data-testid="stAppViewContainer"]
+            > .main .block-container {
               padding: 1.35rem 1.1rem 3rem;
             }
 
@@ -454,8 +489,10 @@ def inject_styles() -> None:
     )
 
 
-def render_page_header(*, title: str, subtitle: str, eyebrow: str) -> None:
-    """Render the page heading with the configured AI status."""
+def render_page_header(
+    *, title: str, subtitle: str, eyebrow: str
+) -> None:
+    """Render the page heading with configured AI status."""
     if groq_is_configured():
         status_text = "Groq AI connected"
         status_color = "#22c55e"
@@ -485,12 +522,14 @@ def render_page_header(*, title: str, subtitle: str, eyebrow: str) -> None:
 
 
 def navigate_to(page: str) -> None:
-    """Navigate from a page action using Streamlit's callback phase."""
+    """Navigate from a page action."""
     if page in PAGE_DETAILS:
         st.session_state["active_page"] = page
 
 
-def render_empty_state(title: str, message: str) -> None:
+def render_empty_state(
+    title: str, message: str
+) -> None:
     st.markdown(
         f"""
         <div class="empty-state">
