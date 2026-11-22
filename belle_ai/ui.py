@@ -38,40 +38,27 @@ def groq_is_configured() -> bool:
 
 
 def inject_styles() -> None:
-    """Apply belleAI's pink-and-blue theme with consistent text contrast."""
+    """Apply belleAI's pink-and-blue theme and accessible sidebar controls."""
 
     st.markdown(
         """
 <style>
-
-/* ==========================================
-   BELLEAI DESIGN SYSTEM
-   ========================================== */
-
 :root {
     --belle-ink: #203455;
     --belle-heading: #1d3054;
     --belle-muted: #526583;
-
     --belle-pink: #b43f7d;
     --belle-pink-dark: #923462;
     --belle-pink-light: #f9dce9;
-
     --belle-blue: #4789c5;
     --belle-blue-dark: #27679e;
     --belle-blue-light: #e8f4ff;
-
     --belle-background: #fff7fb;
-    --belle-white: #ffffff;
     --belle-border: #e7cbdc;
-
-    --belle-gradient:
-        linear-gradient(110deg, #b43f7d, #3475b1);
+    --belle-gradient: linear-gradient(110deg, #b43f7d, #3475b1);
 }
 
-/* ==========================================
-   MAIN APPLICATION
-   ========================================== */
+/* MAIN APP */
 
 .stApp,
 [data-testid="stAppViewContainer"] {
@@ -80,20 +67,16 @@ def inject_styles() -> None:
 }
 
 .stApp {
-    font-family:
-        Inter,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
+    font-family: Inter, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
 }
 
 [data-testid="stHeader"] {
-    background: rgba(255, 247, 251, 0.96);
+    background: rgba(255, 247, 251, 0.96) !important;
+    z-index: 99999 !important;
 }
 
-[data-testid="stAppViewContainer"]
-> .main .block-container {
+[data-testid="stMain"] .block-container {
     max-width: 1480px;
     padding: 2rem 3rem 4rem;
 }
@@ -115,12 +98,10 @@ def inject_styles() -> None:
     color: var(--belle-blue-dark);
 }
 
-/* ==========================================
-   SIDEBAR
-   ========================================== */
+/* SIDEBAR */
 
 [data-testid="stSidebar"] {
-    background: #fff1f7;
+    background: #fff1f7 !important;
     border-right: 1px solid var(--belle-border);
 }
 
@@ -133,8 +114,6 @@ def inject_styles() -> None:
 [data-testid="stSidebar"] label {
     color: var(--belle-ink);
 }
-
-/* Branding */
 
 .brand-lockup {
     display: flex;
@@ -153,7 +132,6 @@ def inject_styles() -> None:
     color: #ffffff;
     font-size: 1.55rem;
     font-weight: 700;
-    line-height: 1;
 }
 
 .brand-name {
@@ -183,20 +161,16 @@ def inject_styles() -> None:
     letter-spacing: 0.13em;
 }
 
-/* Sidebar navigation */
-
 [data-testid="stSidebar"] [role="radiogroup"] {
     gap: 0.22rem;
 }
 
-[data-testid="stSidebar"]
-[role="radiogroup"] label {
+[data-testid="stSidebar"] [role="radiogroup"] label {
     min-height: 2.65rem;
     padding: 0.45rem 0.65rem;
     border-radius: 0.7rem;
     color: #344765;
     font-size: 0.9rem;
-    transition: background 140ms ease;
 }
 
 [data-testid="stSidebar"]
@@ -215,8 +189,6 @@ def inject_styles() -> None:
 [role="radiogroup"] label > div:first-child {
     display: none;
 }
-
-/* Sidebar AI status */
 
 .sidebar-status {
     margin: 0.5rem 0 0.35rem;
@@ -248,9 +220,47 @@ def inject_styles() -> None:
     font-size: 0.75rem;
 }
 
-/* ==========================================
-   PAGE HEADINGS
-   ========================================== */
+/* SIDEBAR OPEN / CLOSE FIX */
+
+[data-testid="stSidebarCollapsedControl"],
+[data-testid="stSidebarCollapseButton"],
+[data-testid="stSidebarNavCollapseButton"] {
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 100000 !important;
+}
+
+[data-testid="stSidebarCollapsedControl"] button,
+[data-testid="stSidebarCollapseButton"] button,
+[data-testid="stSidebarNavCollapseButton"] button,
+button[data-testid="stBaseButton-headerNoPadding"] {
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #203455 !important;
+    background: #ffffff !important;
+    border: 1px solid #dba9c5 !important;
+    border-radius: 0.65rem !important;
+    min-width: 2rem !important;
+    min-height: 2rem !important;
+    cursor: pointer !important;
+}
+
+[data-testid="stSidebarCollapsedControl"] svg,
+[data-testid="stSidebarCollapseButton"] svg,
+[data-testid="stSidebarNavCollapseButton"] svg,
+button[data-testid="stBaseButton-headerNoPadding"] svg {
+    color: #203455 !important;
+    stroke: #203455 !important;
+    opacity: 1 !important;
+}
+
+[data-testid="stSidebarCollapsedControl"] button:hover,
+[data-testid="stSidebarCollapseButton"] button:hover {
+    background: #f9dce9 !important;
+    border-color: #b43f7d !important;
+}
+
+/* PAGE HEADERS */
 
 .page-heading {
     display: flex;
@@ -313,16 +323,15 @@ def inject_styles() -> None:
     line-height: 1.55;
 }
 
-.eyebrow-note {
+.eyebrow-note,
+.feature-label {
     color: var(--belle-pink-dark);
     font-size: 0.7rem;
     font-weight: 750;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
 }
 
-/* ==========================================
-   DASHBOARD CARDS AND METRICS
-   ========================================== */
+/* CARDS AND METRICS */
 
 div[data-testid="stVerticalBlockBorderWrapper"] {
     border-color: #e5c3d6;
@@ -330,16 +339,11 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     background: #ffffff;
 }
 
-[data-testid="stMetric"] {
-    color: var(--belle-heading) !important;
-}
-
 [data-testid="stMetricLabel"],
 [data-testid="stMetricLabel"] * {
     color: #344765 !important;
     -webkit-text-fill-color: #344765 !important;
     opacity: 1 !important;
-    font-size: 0.95rem !important;
     font-weight: 750 !important;
 }
 
@@ -351,15 +355,7 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     font-weight: 800 !important;
 }
 
-[data-testid="stMetricDelta"],
-[data-testid="stMetricDelta"] * {
-    opacity: 1 !important;
-    font-weight: 650;
-}
-
-/* ==========================================
-   EMPTY STATES AND DOCUMENTS
-   ========================================== */
+/* EMPTY STATES */
 
 .empty-state {
     padding: 2rem 1.2rem;
@@ -391,34 +387,19 @@ div[data-testid="stVerticalBlockBorderWrapper"] {
     font-weight: 700;
 }
 
-.feature-label {
-    color: var(--belle-pink-dark);
-    font-size: 0.7rem;
-    font-weight: 750;
-    letter-spacing: 0.1em;
-}
-
-/* ==========================================
-   BUTTONS — DARK = LIGHT TEXT
-   ========================================== */
+/* BUTTONS */
 
 .stButton > button,
 .stDownloadButton > button,
 .stFormSubmitButton > button {
     border-radius: 0.7rem !important;
     font-weight: 700 !important;
-    transition:
-        background 140ms ease,
-        box-shadow 140ms ease;
 }
-
-/* Light secondary buttons */
 
 .stButton > button:not([kind="primary"]),
 .stDownloadButton > button:not([kind="primary"]),
 .stFormSubmitButton > button:not([kind="primary"]),
-button[data-testid="stBaseButton-secondary"],
-button[data-testid="stBaseButton-secondaryFormSubmit"] {
+button[data-testid="stBaseButton-secondary"] {
     background: #fff5fa !important;
     color: #71304f !important;
     -webkit-text-fill-color: #71304f !important;
@@ -427,20 +408,15 @@ button[data-testid="stBaseButton-secondaryFormSubmit"] {
 
 .stButton > button:not([kind="primary"]) *,
 .stDownloadButton > button:not([kind="primary"]) *,
-.stFormSubmitButton > button:not([kind="primary"]) *,
-button[data-testid="stBaseButton-secondary"] *,
-button[data-testid="stBaseButton-secondaryFormSubmit"] * {
+.stFormSubmitButton > button:not([kind="primary"]) * {
     color: #71304f !important;
     -webkit-text-fill-color: #71304f !important;
 }
 
-/* Dark primary buttons */
-
 .stButton > button[kind="primary"],
 .stDownloadButton > button[kind="primary"],
 .stFormSubmitButton > button[kind="primary"],
-button[data-testid="stBaseButton-primary"],
-button[data-testid="stBaseButton-primaryFormSubmit"] {
+button[data-testid="stBaseButton-primary"] {
     background: var(--belle-gradient) !important;
     color: #ffffff !important;
     -webkit-text-fill-color: #ffffff !important;
@@ -449,39 +425,15 @@ button[data-testid="stBaseButton-primaryFormSubmit"] {
 
 .stButton > button[kind="primary"] *,
 .stDownloadButton > button[kind="primary"] *,
-.stFormSubmitButton > button[kind="primary"] *,
-button[data-testid="stBaseButton-primary"] *,
-button[data-testid="stBaseButton-primaryFormSubmit"] * {
+.stFormSubmitButton > button[kind="primary"] * {
     color: #ffffff !important;
     -webkit-text-fill-color: #ffffff !important;
 }
 
-.stButton > button:not([kind="primary"]):hover,
-.stDownloadButton > button:not([kind="primary"]):hover {
-    background: #f9dce9 !important;
-    border-color: #b43f7d !important;
-}
-
-.stButton > button[kind="primary"]:hover,
-.stDownloadButton > button[kind="primary"]:hover {
-    background:
-        linear-gradient(110deg, #923462, #27679e) !important;
-}
-
-.stButton > button:disabled,
-.stDownloadButton > button:disabled {
-    opacity: 0.65;
-    cursor: not-allowed;
-}
-
-/* ==========================================
-   TEXT INPUTS
-   ========================================== */
+/* TEXT INPUTS */
 
 [data-testid="stTextInput"] input,
-[data-testid="stTextArea"] textarea,
-.stTextInput input,
-.stTextArea textarea {
+[data-testid="stTextArea"] textarea {
     background: #ffffff !important;
     color: #203455 !important;
     -webkit-text-fill-color: #203455 !important;
@@ -492,19 +444,10 @@ button[data-testid="stBaseButton-primaryFormSubmit"] * {
 [data-testid="stTextInput"] input::placeholder,
 [data-testid="stTextArea"] textarea::placeholder {
     color: #66738b !important;
-    -webkit-text-fill-color: #66738b !important;
     opacity: 1 !important;
 }
 
-[data-testid="stTextInput"] label,
-[data-testid="stTextArea"] label {
-    color: #293d5f !important;
-    font-weight: 650 !important;
-}
-
-/* ==========================================
-   CHAT MESSAGES
-   ========================================== */
+/* CHAT MESSAGES */
 
 [data-testid="stChatMessage"] {
     background: #e8f4ff !important;
@@ -515,16 +458,12 @@ button[data-testid="stBaseButton-primaryFormSubmit"] * {
     box-shadow: 0 2px 8px rgba(35, 54, 92, 0.05);
 }
 
-/* User messages */
-
 [data-testid="stChatMessage"]:has(
     [data-testid="chatAvatarIcon-user"]
 ) {
     background: #f9dce9 !important;
     border: 1px solid #e4aac5 !important;
 }
-
-/* Assistant messages */
 
 [data-testid="stChatMessage"]:has(
     [data-testid="chatAvatarIcon-assistant"]
@@ -552,51 +491,19 @@ button[data-testid="stBaseButton-primaryFormSubmit"] * {
     font-weight: 800 !important;
 }
 
-[data-testid="stChatMessage"]
-[data-testid="stMarkdownContainer"] a {
-    color: #923462 !important;
-    text-decoration: underline;
-}
-
-[data-testid="stChatMessage"]
-[data-testid="stMarkdownContainer"] code {
-    color: #203455 !important;
-    background: #ffffff !important;
-}
-
-[data-testid="stChatMessage"]
-[data-testid="stMarkdownContainer"] hr {
-    border-color: #b6cce2 !important;
-}
-
-[data-testid="stChatMessage"]
-[data-testid="stCaptionContainer"],
-[data-testid="stChatMessage"] small {
-    color: #435775 !important;
-}
-
-/* ==========================================
-   CHAT INPUT
-   ========================================== */
+/* CHAT INPUT */
 
 [data-testid="stChatInput"] {
     background: #fff0f7 !important;
     border: 1.5px solid #d99ebc !important;
     border-radius: 14px !important;
-    box-shadow:
-        0 3px 12px rgba(195, 78, 140, 0.08) !important;
 }
 
 [data-testid="stChatInput"] > div,
-[data-testid="stChatInput"] > div > div,
 [data-testid="stChatInput"] textarea,
-[data-testid="stChatInput"] textarea:focus,
-[data-testid="stChatInput"] [data-baseweb],
-[data-testid="stChatInput"] [data-baseweb] > div {
+[data-testid="stChatInput"] [data-baseweb] {
     background: transparent !important;
-    background-color: transparent !important;
     color: #203455 !important;
-    box-shadow: none !important;
 }
 
 [data-testid="stChatInput"] textarea {
@@ -608,7 +515,6 @@ button[data-testid="stBaseButton-primaryFormSubmit"] * {
 
 [data-testid="stChatInput"] textarea::placeholder {
     color: #655f77 !important;
-    -webkit-text-fill-color: #655f77 !important;
     opacity: 1 !important;
 }
 
@@ -628,15 +534,7 @@ button[data-testid="stBaseButton-primaryFormSubmit"] * {
     background: #fff7fb !important;
 }
 
-/* ==========================================
-   ALERTS — FULL CONTRAST FIX
-   ========================================== */
-
-/*
-   Streamlit may put the alert background on
-   either the outer wrapper or an inner element.
-   Set every layer to a light background.
-*/
+/* ALERTS */
 
 div[data-testid="stAlert"],
 div[data-testid="stAlert"] > div,
@@ -650,14 +548,10 @@ div[data-testid="stAlert"]
     border-radius: 12px !important;
 }
 
-/* Force all notification text to dark navy */
-
 div[data-testid="stAlert"] p,
 div[data-testid="stAlert"] span,
 div[data-testid="stAlert"] li,
 div[data-testid="stAlert"] small,
-div[data-testid="stAlert"]
-[data-testid="stMarkdownContainer"],
 div[data-testid="stAlert"]
 [data-testid="stMarkdownContainer"] * {
     color: #203455 !important;
@@ -665,70 +559,12 @@ div[data-testid="stAlert"]
     opacity: 1 !important;
 }
 
-/* Notification icons */
-
 div[data-testid="stAlert"] svg {
     color: #27679e !important;
     stroke: #27679e !important;
 }
 
-/* ==========================================
-   SUCCESS NOTIFICATIONS
-   ========================================== */
-
-div[data-testid="stAlert"]:has(
-    [data-testid="stNotificationContentSuccess"]
-),
-div[data-testid="stAlert"]:has(
-    [data-testid="stAlertContentSuccess"]
-),
-div[data-testid="stAlert"][kind="success"],
-div[data-testid="stAlert"][data-kind="success"] {
-    background: #eaf8f1 !important;
-    background-color: #eaf8f1 !important;
-    border: 1px solid #9ed4b7 !important;
-    color: #14543b !important;
-}
-
-/* ==========================================
-   WARNING NOTIFICATIONS
-   ========================================== */
-
-div[data-testid="stAlert"]:has(
-    [data-testid="stNotificationContentWarning"]
-),
-div[data-testid="stAlert"]:has(
-    [data-testid="stAlertContentWarning"]
-),
-div[data-testid="stAlert"][kind="warning"],
-div[data-testid="stAlert"][data-kind="warning"] {
-    background: #fff2df !important;
-    background-color: #fff2df !important;
-    border: 1px solid #e5c18a !important;
-    color: #704400 !important;
-}
-
-/* ==========================================
-   ERROR NOTIFICATIONS
-   ========================================== */
-
-div[data-testid="stAlert"]:has(
-    [data-testid="stNotificationContentError"]
-),
-div[data-testid="stAlert"]:has(
-    [data-testid="stAlertContentError"]
-),
-div[data-testid="stAlert"][kind="error"],
-div[data-testid="stAlert"][data-kind="error"] {
-    background: #fff0f2 !important;
-    background-color: #fff0f2 !important;
-    border: 1px solid #e8a7b4 !important;
-    color: #872b43 !important;
-}
-
-/* ==========================================
-   FILE UPLOADER
-   ========================================== */
+/* FILE UPLOADER */
 
 [data-testid="stFileUploader"] {
     color: var(--belle-ink);
@@ -749,34 +585,18 @@ div[data-testid="stAlert"][data-kind="error"] {
 [data-testid="stFileUploaderDropzone"] button {
     background: #ffffff !important;
     color: #71304f !important;
-    -webkit-text-fill-color: #71304f !important;
     border: 1px solid #dba9c5 !important;
     border-radius: 0.65rem !important;
 }
 
-[data-testid="stFileUploaderDropzone"] button * {
-    color: #71304f !important;
-    -webkit-text-fill-color: #71304f !important;
-}
-
-/* ==========================================
-   SELECT BOXES AND DROPDOWNS
-   ========================================== */
+/* SELECTS, TOGGLES, TABS */
 
 [data-testid="stSelectbox"] label,
-[data-testid="stMultiSelect"] label {
+[data-testid="stMultiSelect"] label,
+[data-testid="stCheckbox"] label,
+[data-testid="stToggle"] label,
+[data-testid="stRadio"] label {
     color: #293d5f !important;
-    font-weight: 650 !important;
-}
-
-[data-testid="stSelectbox"] [data-baseweb="select"],
-[data-testid="stMultiSelect"] [data-baseweb="select"],
-[data-testid="stSelectbox"]
-[data-baseweb="select"] > div,
-[data-testid="stMultiSelect"]
-[data-baseweb="select"] > div {
-    background: #ffffff !important;
-    color: #203455 !important;
 }
 
 [data-baseweb="popover"],
@@ -784,32 +604,6 @@ div[data-testid="stAlert"][data-kind="error"] {
 [data-baseweb="list"] {
     background: #ffffff !important;
     color: #203455 !important;
-}
-
-[data-baseweb="menu"] li,
-[data-baseweb="menu"] [role="option"] {
-    color: #203455 !important;
-}
-
-/* ==========================================
-   CHECKBOXES, TOGGLES AND RADIO BUTTONS
-   ========================================== */
-
-[data-testid="stCheckbox"] label,
-[data-testid="stToggle"] label,
-[data-testid="stRadio"] label,
-[data-testid="stCheckbox"] p,
-[data-testid="stToggle"] p,
-[data-testid="stRadio"] p {
-    color: #293d5f !important;
-}
-
-/* ==========================================
-   TABS
-   ========================================== */
-
-[data-baseweb="tab-list"] {
-    border-bottom-color: #e8bfd3 !important;
 }
 
 [data-baseweb="tab"] {
@@ -822,9 +616,7 @@ div[data-testid="stAlert"][data-kind="error"] {
     font-weight: 750 !important;
 }
 
-/* ==========================================
-   EXPANDERS
-   ========================================== */
+/* EXPANDERS */
 
 [data-testid="stExpander"] {
     background: #ffffff;
@@ -837,13 +629,7 @@ div[data-testid="stAlert"][data-kind="error"] {
     color: #263b5e !important;
 }
 
-/* ==========================================
-   TABLES
-   ========================================== */
-
-[data-testid="stTable"] {
-    color: #203455;
-}
+/* TABLES */
 
 [data-testid="stTable"] th {
     background: #f9dce9 !important;
@@ -854,9 +640,7 @@ div[data-testid="stAlert"][data-kind="error"] {
     color: #203455 !important;
 }
 
-/* ==========================================
-   CAPTIONS AND DIVIDERS
-   ========================================== */
+/* CAPTIONS */
 
 [data-testid="stCaptionContainer"],
 [data-testid="stCaptionContainer"] p {
@@ -868,14 +652,10 @@ hr {
     border-color: #e7cbdc !important;
 }
 
-/* ==========================================
-   MOBILE RESPONSIVENESS
-   ========================================== */
+/* MOBILE */
 
 @media (max-width: 760px) {
-
-    [data-testid="stAppViewContainer"]
-    > .main .block-container {
+    [data-testid="stMain"] .block-container {
         padding: 1.35rem 1.1rem 3rem;
     }
 
@@ -894,11 +674,6 @@ hr {
 
     .page-title {
         font-size: 1.8rem;
-    }
-
-    [data-testid="stMetricLabel"],
-    [data-testid="stMetricLabel"] * {
-        font-size: 0.85rem !important;
     }
 }
 

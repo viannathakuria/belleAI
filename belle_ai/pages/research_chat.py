@@ -5,6 +5,7 @@ import streamlit as st
 from ollama import Client
 
 from belle_ai.hosted_ai import get_hosted_answer
+from belle_ai.rag import get_relevant_pages
 
 
 GROQ_MODEL = "openai/gpt-oss-20b"
@@ -65,12 +66,7 @@ def normalize_question(question):
 
 
 def is_identity_question(question):
-    """
-    Detect identity questions using flexible language patterns.
-
-    This covers thousands of possible combinations without
-    storing thousands of individual questions.
-    """
+    """Detect questions about belleAI's identity and configuration."""
     text = normalize_question(question)
     words = set(text.split())
 
@@ -153,7 +149,6 @@ def is_identity_question(question):
     if text in direct_phrases:
         return True
 
-    # Questions about this assistant specifically.
     self_references = {
         "you", "your", "yourself", "belleai"
     }
@@ -169,8 +164,6 @@ def is_identity_question(question):
     if words & self_references and words & identity_terms:
         return True
 
-    # Questions that explicitly ask what model or provider
-    # this assistant uses.
     question_starters = {
         "what", "which", "who", "where",
         "whose", "tell", "explain", "identify",
@@ -192,7 +185,6 @@ def is_identity_question(question):
         ):
             return True
 
-    # Recognize comparisons involving the assistant.
     comparison_patterns = [
         r"\bare you (gpt|claude|gemini|groq|ollama|llama|qwen)",
         r"\bis belleai (gpt|claude|gemini|groq|ollama)",
@@ -242,76 +234,16 @@ def ask_ai(messages):
     return response.message.content or "No answer generated."
 
 
-def get_relevant_pages(question, documents, max_pages=5):
-    """Find the most relevant pages in uploaded PDFs."""
-    question_words = set(
-        re.findall(r"[a-zA-Z0-9]{3,}", question.lower())
-    )
-
-    question_words -= {
-        "the", "and", "for", "what", "how", "does",
-        "this", "that", "with", "from", "about",
-        "please", "explain", "tell", "which",
-    }
-
-    matches = []
-
-    for doc_id, document in documents.items():
-        text = document.get("text", "")
-
-        if not text:
-            continue
-
-        for section in re.split(
-            r"(?=--- Page \d+ ---)", text
-        ):
-            page_match = re.match(
-                r"--- Page (\d+) ---\s*", section
-            )
-
-            if not page_match:
-                continue
-
-            page_number = int(page_match.group(1))
-            page_text = section[page_match.end():].strip()
-
-            if not page_text:
-                continue
-
-            page_words = set(
-                re.findall(
-                    r"[a-zA-Z0-9]{3,}",
-                    page_text.lower(),
-                )
-            )
-
-            score = len(question_words & page_words)
-
-            matches.append({
-                "name": document["name"],
-                "page": page_number,
-                "text": page_text[:5000],
-                "score": score,
-            })
-
-    matches.sort(
-        key=lambda item: item["score"],
-        reverse=True,
-    )
-
-    return matches[:max_pages]
-
-
 def render_research_chat() -> None:
     st.markdown("### Research Chat")
 
     if groq_is_configured():
         st.caption(
-            "Powered by Groq · GPT-OSS 20B · PDF research"
+            "Powered by Groq · GPT-OSS 20B · Hybrid RAG"
         )
     else:
         st.caption(
-            "Powered by local Ollama · PDF research"
+            "Powered by local Ollama · Hybrid RAG"
         )
 
     documents = st.session_state.get("documents", {})
@@ -368,7 +300,6 @@ def render_research_chat() -> None:
     with st.chat_message("assistant"):
         with st.spinner("belleAI is thinking..."):
             try:
-                # Answer identity questions directly in Python.
                 if (
                     not use_documents
                     and is_identity_question(question)
@@ -436,7 +367,7 @@ def render_research_chat() -> None:
 
                         answer += (
                             "\n\n---\n"
-                            "**PDF pages provided to the AI:**\n"
+                            "**PDF excerpts provided to the AI:**\n"
                             + sources
                         )
 

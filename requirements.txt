@@ -3,3 +3,5 @@ PyMuPDF>=1.24.0
 google-genai
 ollama
 groq
+sentence-transformers>=3.0,<6
+numpy>=1.26,<3
