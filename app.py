@@ -30,7 +30,7 @@ AVAILABLE_PAGES = [
     "My Documents",
     "Research Chat",
     "Image Analysis",
-    "Knowledge Graph"
+    "Knowledge Graph",
     "Settings",
 ]
 
@@ -107,7 +107,7 @@ with st.sidebar:
 # Display the selected page.
 page = st.session_state["active_page"]
 
-# Provide page details for the new Image Analysis page.
+# Provide page details for Image Analysis and Knowledge Graph.
 if page == "Image Analysis":
     title = "Image Analysis"
     subtitle = "Upload images and explore them with AI."
