@@ -3,10 +3,7 @@ import streamlit as st
 
 from belle_ai.pages.dashboard import render_dashboard
 from belle_ai.pages.documents import render_documents
-from belle_ai.pages.feature_previews import (
-    render_image_analysis,
-    render_knowledge_graph,
-)
+from belle_ai.pages.feature_previews import render_image_analysis
 from belle_ai.pages.research_chat import (
     render_research_chat,
     groq_is_configured,
@@ -15,7 +12,6 @@ from belle_ai.pages.settings import render_settings
 from belle_ai.ui import (
     PAGE_DETAILS,
     inject_styles,
-    navigate_to,
     render_page_header,
 )
 
@@ -27,10 +23,24 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
+# Available pages — Knowledge Graph removed.
+AVAILABLE_PAGES = [
+    "Dashboard",
+    "My Documents",
+    "Research Chat",
+    "Image Analysis",
+    "Settings",
+]
+
+# Initialize session state.
 st.session_state.setdefault("active_page", "Dashboard")
 st.session_state.setdefault("documents", {})
 st.session_state.setdefault("upload_version", 0)
 st.session_state.setdefault("upload_feedback", [])
+
+# Handle an old session that was on Knowledge Graph.
+if st.session_state["active_page"] not in AVAILABLE_PAGES:
+    st.session_state["active_page"] = "Dashboard"
 
 inject_styles()
 
@@ -65,7 +75,7 @@ with st.sidebar:
 
     st.radio(
         "Workspace pages",
-        options=list(PAGE_DETAILS),
+        options=AVAILABLE_PAGES,
         key="active_page",
         label_visibility="collapsed",
     )
@@ -92,6 +102,7 @@ with st.sidebar:
 
     st.caption("Your PDFs stay in this app session.")
 
+# Render the selected page.
 page = st.session_state["active_page"]
 
 title, subtitle, eyebrow = PAGE_DETAILS[page]
@@ -113,9 +124,6 @@ elif page == "Research Chat":
 
 elif page == "Image Analysis":
     render_image_analysis()
-
-elif page == "Knowledge Graph":
-    render_knowledge_graph()
 
 elif page == "Settings":
     render_settings()
