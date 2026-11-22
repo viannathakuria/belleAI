@@ -61,31 +61,38 @@ def inject_styles() -> None:
             --lavender-soft: #f0edff;
             --surface: #ffffff;
           }
+
           .stApp {
             background: #f7f8fc;
             color: var(--ink);
             font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
           }
+
           [data-testid="stHeader"] {
             background: rgba(247, 248, 252, 0.92);
           }
+
           [data-testid="stAppViewContainer"] > .main .block-container {
             max-width: 1480px;
             padding: 2rem 3rem 4rem;
           }
+
           [data-testid="stSidebar"] {
-            background: #fff;
+            background: #ffffff;
             border-right: 1px solid var(--line);
           }
+
           [data-testid="stSidebar"] > div:first-child {
             padding-top: 1.6rem;
           }
+
           .brand-lockup {
             display: flex;
             gap: 0.75rem;
             align-items: center;
             padding: 0.25rem 0.15rem 1.7rem;
           }
+
           .brand-mark {
             display: grid;
             width: 2.65rem;
@@ -93,18 +100,23 @@ def inject_styles() -> None:
             place-items: center;
             border-radius: 0.9rem;
             background: linear-gradient(145deg, #252f55, #6256b5);
-            color: #fff;
+            color: #ffffff;
             font-size: 1.55rem;
             font-weight: 700;
             line-height: 1;
           }
+
           .brand-name {
             color: #202a48;
             font-size: 1.17rem;
             font-weight: 720;
             letter-spacing: -0.045em;
           }
-          .brand-name span { color: var(--lavender); }
+
+          .brand-name span {
+            color: var(--lavender);
+          }
+
           .brand-caption {
             margin-top: 0.16rem;
             color: #8a92a8;
@@ -112,6 +124,7 @@ def inject_styles() -> None:
             font-weight: 700;
             letter-spacing: 0.14em;
           }
+
           .sidebar-section-label {
             margin: 0.5rem 0 0.45rem 0.45rem;
             color: #9299ab;
@@ -119,7 +132,11 @@ def inject_styles() -> None:
             font-weight: 700;
             letter-spacing: 0.13em;
           }
-          [data-testid="stSidebar"] [role="radiogroup"] { gap: 0.22rem; }
+
+          [data-testid="stSidebar"] [role="radiogroup"] {
+            gap: 0.22rem;
+          }
+
           [data-testid="stSidebar"] [role="radiogroup"] label {
             min-height: 2.65rem;
             padding: 0.45rem 0.65rem;
@@ -128,14 +145,17 @@ def inject_styles() -> None:
             font-size: 0.9rem;
             transition: background 140ms ease, color 140ms ease;
           }
+
           [data-testid="stSidebar"] [role="radiogroup"] label:has(input:checked) {
             background: var(--lavender-soft);
             color: #5143aa;
             font-weight: 650;
           }
+
           [data-testid="stSidebar"] [role="radiogroup"] label > div:first-child {
             display: none;
           }
+
           .sidebar-status {
             margin: 0.5rem 0 0.35rem;
             padding: 0.9rem 0.85rem;
@@ -143,6 +163,7 @@ def inject_styles() -> None:
             border-radius: 0.8rem;
             background: #fbfbfe;
           }
+
           .sidebar-status-title {
             display: flex;
             align-items: center;
@@ -151,17 +172,20 @@ def inject_styles() -> None:
             font-size: 0.79rem;
             font-weight: 650;
           }
+
           .status-dot {
             width: 0.45rem;
             height: 0.45rem;
             border-radius: 50%;
             background: #b9bfd0;
           }
+
           .sidebar-status-copy {
             margin: 0.35rem 0 0 0.9rem;
             color: #8790a5;
             font-size: 0.75rem;
           }
+
           .page-heading {
             display: flex;
             align-items: flex-start;
@@ -169,6 +193,7 @@ def inject_styles() -> None:
             gap: 1rem;
             margin: 0.1rem 0 2rem;
           }
+
           .page-eyebrow {
             margin: 0 0 0.45rem;
             color: #786bc6;
@@ -176,6 +201,7 @@ def inject_styles() -> None:
             font-weight: 750;
             letter-spacing: 0.14em;
           }
+
           .page-title {
             margin: 0;
             color: #182341;
@@ -184,12 +210,14 @@ def inject_styles() -> None:
             letter-spacing: -0.055em;
             line-height: 1.14;
           }
+
           .page-subtitle {
             margin: 0.62rem 0 0;
             color: #707991;
             font-size: 0.96rem;
             line-height: 1.55;
           }
+
           .connection-badge {
             display: flex;
             flex: 0 0 auto;
@@ -199,29 +227,33 @@ def inject_styles() -> None:
             padding: 0.52rem 0.75rem;
             border: 1px solid #e7e8f1;
             border-radius: 999px;
-            background: #fff;
+            background: #ffffff;
             color: #6b748b;
             font-size: 0.74rem;
             font-weight: 600;
           }
+
           .badge-dot {
             width: 0.42rem;
             height: 0.42rem;
             border-radius: 50%;
             background: #c1c5d0;
           }
+
           .section-intro {
             margin: -0.75rem 0 1.35rem;
             color: #737c93;
             font-size: 0.91rem;
             line-height: 1.55;
           }
+
           .eyebrow-note {
             color: #8679cc;
             font-size: 0.68rem;
             font-weight: 720;
             letter-spacing: 0.12em;
           }
+
           .empty-state {
             padding: 2rem 1.2rem;
             border: 1px dashed #d8dceb;
@@ -229,12 +261,14 @@ def inject_styles() -> None:
             background: rgba(255, 255, 255, 0.72);
             text-align: center;
           }
+
           .empty-state h3 {
             margin: 0.15rem 0 0.4rem;
             color: #26314f;
             font-size: 1.08rem;
             font-weight: 680;
           }
+
           .empty-state p {
             max-width: 32rem;
             margin: 0 auto;
@@ -242,57 +276,61 @@ def inject_styles() -> None:
             font-size: 0.89rem;
             line-height: 1.55;
           }
+
           .document-name {
             overflow-wrap: anywhere;
             color: #26314f;
             font-size: 0.98rem;
             font-weight: 670;
           }
+
           .feature-label {
             color: #8174cb;
             font-size: 0.68rem;
             font-weight: 730;
             letter-spacing: 0.1em;
           }
+
           div[data-testid="stMetric"] {
             padding: 0.1rem 0;
           }
+
           div[data-testid="stMetricLabel"] {
             color: #798198;
             font-size: 0.78rem;
           }
+
           div[data-testid="stMetricValue"] {
             color: #202b49;
             font-size: 1.85rem;
             font-weight: 700;
             letter-spacing: -0.05em;
           }
+
           div[data-testid="stVerticalBlockBorderWrapper"] {
             border-color: var(--line);
             border-radius: 0.95rem;
             background: var(--surface);
           }
+
           .stButton > button {
             border-radius: 0.68rem;
             font-weight: 620;
             transition: transform 120ms ease, box-shadow 120ms ease;
           }
+
           .stButton > button:hover:not(:disabled) {
             transform: translateY(-1px);
             box-shadow: 0 5px 14px rgba(38, 42, 82, 0.08);
           }
-          .stTextArea textarea, .stTextInput input {
+
+          .stTextArea textarea,
+          .stTextInput input {
             border-radius: 0.7rem;
           }
-          @media (max-width: 760px) {
-            [data-testid="stAppViewContainer"] > .main .block-container {
-              padding: 1.35rem 1.1rem 3rem;
-            }
-            .page-heading { flex-direction: column; margin-bottom: 1.5rem; }
-            .connection-badge { margin-top: 0; }
-          }
 
-          /* High-contrast research chat: readable on desktop and mobile. */
+          /* Chat message cards */
+
           [data-testid="stChatMessage"] {
             background: #ffffff !important;
             border: 1px solid #d9d4ed !important;
@@ -301,15 +339,17 @@ def inject_styles() -> None:
             margin-bottom: 1rem !important;
             box-shadow: 0 2px 8px rgba(35, 24, 72, 0.045);
           }
-          /* User messages are lavender; AI responses stay white for long PDF answers. */
+
           [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) {
             background: #eee8ff !important;
             border-color: #c6b5f1 !important;
           }
+
           [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) {
             background: #ffffff !important;
             border-left: 4px solid #6245b5 !important;
           }
+
           [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"],
           [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] p,
           [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] li {
@@ -317,40 +357,93 @@ def inject_styles() -> None:
             font-size: 1rem !important;
             line-height: 1.75 !important;
           }
+
           [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] strong {
             color: #25164e !important;
             font-weight: 750 !important;
           }
+
           [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] a {
             color: #49309e !important;
             text-decoration: underline;
           }
+
           [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] code {
             color: #2c1e60 !important;
             background: #f0ecfa !important;
           }
+
           [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"] hr {
             border-color: #d9d4e8 !important;
           }
-          [data-testid="stChatInput"] {
-            border: 1px solid #bcb0df !important;
-            border-radius: 0.9rem !important;
-            background: #ffffff !important;
-          }
-          [data-testid="stChatInput"] textarea {
-            color: #201a36 !important;
-            background: #ffffff !important;
-            font-size: 1rem !important;
-          }
-          [data-testid="stChatInput"] textarea::placeholder {
-            color: #625b75 !important;
-            opacity: 1;
-          }
+
           [data-testid="stChatMessage"] [data-testid="stCaptionContainer"],
           [data-testid="stChatMessage"] small {
             color: #514866 !important;
           }
+
+          /* Lavender chat input — removes white inner rectangle */
+
+          [data-testid="stChatInput"] {
+            background: #eee8ff !important;
+            border: 1.5px solid #b9a5e8 !important;
+            border-radius: 14px !important;
+            box-shadow: 0 3px 12px rgba(98, 69, 181, 0.08) !important;
+          }
+
+          [data-testid="stChatInput"] > div,
+          [data-testid="stChatInput"] textarea,
+          [data-testid="stChatInput"] textarea:focus {
+            background: transparent !important;
+            background-color: transparent !important;
+            color: #24183f !important;
+            box-shadow: none !important;
+          }
+
+          [data-testid="stChatInput"] textarea::placeholder {
+            color: #65548a !important;
+            opacity: 1 !important;
+          }
+
+          [data-testid="stChatInput"] button {
+            background: #6245b5 !important;
+            color: #ffffff !important;
+            border-radius: 10px !important;
+          }
+
+          [data-testid="stChatInput"] button svg {
+            color: #ffffff !important;
+          }
+
+          /* Improve button contrast */
+
+          .stButton > button:not([kind="primary"]) {
+            background: #ffffff;
+            color: #332455;
+            border: 1px solid #c9bce8;
+          }
+
+          .stButton > button:not([kind="primary"]):hover {
+            background: #f0eaff;
+            color: #332455;
+          }
+
+          /* Mobile layout */
+
           @media (max-width: 760px) {
+            [data-testid="stAppViewContainer"] > .main .block-container {
+              padding: 1.35rem 1.1rem 3rem;
+            }
+
+            .page-heading {
+              flex-direction: column;
+              margin-bottom: 1.5rem;
+            }
+
+            .connection-badge {
+              margin-top: 0;
+            }
+
             [data-testid="stChatMessage"] {
               padding: 0.85rem 0.8rem !important;
             }
